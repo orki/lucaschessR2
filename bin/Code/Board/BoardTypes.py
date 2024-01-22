@@ -1,6 +1,6 @@
 import base64
 
-from PySide2 import QtWidgets, QtCore, QtGui
+from PySide6 import QtWidgets, QtCore, QtGui
 
 import Code
 from Code.QT import Controles
@@ -530,9 +530,9 @@ class Pizarra(QtWidgets.QWidget):
         self.pb.hide()
 
     def mousePressEvent(self, event):
-        m = int(event.modifiers())
-        si_ctrl = (m & QtCore.Qt.ControlModifier) > 0
-        if si_ctrl and event.button() == QtCore.Qt.LeftButton:
+        m = event.modifiers()
+        si_ctrl = (m & QtCore.Qt.KeyboardModifier.ControlModifier) == QtCore.Qt.KeyboardModifier.ControlModifier
+        if si_ctrl and event.button() == QtCore.Qt.MouseButton.LeftButton:
             self.guion.borrarPizarraActiva()
 
     def borrar(self):

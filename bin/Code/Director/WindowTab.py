@@ -1,6 +1,6 @@
 import collections
 
-from PySide2 import QtCore, QtGui, QtWidgets
+from PySide6 import QtCore, QtGui, QtWidgets
 
 import Code
 from Code.QT import Colocacion
@@ -44,10 +44,10 @@ class SelectUna(Controles.LB):
             self.owner.addText()
         else:
             eb = event.button()
-            if self.id is None or eb == QtCore.Qt.RightButton:
+            if self.id is None or eb == QtCore.Qt.MouseButton.RightButton:
                 self.owner.edit(self)
             else:
-                if eb == QtCore.Qt.LeftButton:
+                if eb == QtCore.Qt.MouseButton.LeftButton:
                     self.owner.seleccionar(self)
 
 
@@ -311,12 +311,12 @@ class DragUna(Controles.LB):
 
     def mousePressEvent(self, event):
         eb = event.button()
-        if self.id is None or eb == QtCore.Qt.RightButton:
+        if self.id is None or eb == QtCore.Qt.MouseButton.RightButton:
 
             self.owner.edit(self)
 
         else:
-            if eb == QtCore.Qt.LeftButton:
+            if eb == QtCore.Qt.MouseButton.LeftButton:
                 self.owner.startDrag(self)
 
 

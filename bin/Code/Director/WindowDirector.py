@@ -1,6 +1,6 @@
 import os
 
-from PySide2 import QtWidgets, QtCore, QtGui
+from PySide6 import QtWidgets, QtCore, QtGui
 
 import Code
 from Code import Util
@@ -964,25 +964,25 @@ class Director:
         self.directorItemSC = None
 
     def keyPressEvent(self, event):
-        m = int(event.modifiers())
-        is_ctrl = (m & QtCore.Qt.ControlModifier) > 0
+        m = event.modifiers()
+        is_ctrl = (m & QtCore.Qt.KeyboardModifier.ControlModifier) == QtCore.Qt.KeyboardModifier.ControlModifier
         k = event.key()
-        if k == QtCore.Qt.Key_Backspace:
+        if k == QtCore.Qt.Key.Key_Backspace:
             self.w.borraUltimo()
             return True
-        if k == QtCore.Qt.Key_Delete:
+        if k == QtCore.Qt.Key.Key_Delete:
             self.w.borraTodos()
             return True
-        if QtCore.Qt.Key_F1 <= k <= QtCore.Qt.Key_F10:
-            f = k - QtCore.Qt.Key_F1
+        if QtCore.Qt.Key.Key_F1 <= k <= QtCore.Qt.Key.Key_F10:
+            f = k - QtCore.Qt.Key.Key_F1
             self.w.funcion(f, is_ctrl)
             return True
         else:
             return False
 
     def mousePressEvent(self, event):
-        is_right = event.button() == QtCore.Qt.RightButton
-        is_left = event.button() == QtCore.Qt.LeftButton
+        is_right = event.button() == QtCore.Qt.MouseButton.RightButton
+        is_left = event.button() == QtCore.Qt.MouseButton.LeftButton
 
         if is_left:
             if self.board.event2a1h8(event) is None:
@@ -992,10 +992,10 @@ class Director:
 
         p = event.pos()
         a1h8 = self.punto2a1h8(p)
-        m = int(event.modifiers())
-        is_ctrl = (m & QtCore.Qt.ControlModifier) > 0
-        is_shift = (m & QtCore.Qt.ShiftModifier) > 0
-        is_alt = (m & QtCore.Qt.AltModifier) > 0
+        m = event.modifiers()
+        is_ctrl = (m & QtCore.Qt.KeyboardModifier.ControlModifier) == QtCore.Qt.KeyboardModifier.ControlModifier
+        is_shift = (m & QtCore.Qt.KeyboardModifier.ShiftModifier) == QtCore.Qt.KeyboardModifier.ShiftModifier
+        is_alt = (m & QtCore.Qt.KeyboardModifier.AltModifier) == QtCore.Qt.KeyboardModifier.AltModifier
 
         li_tareas = self.guion.tareasPosicion(p)
 
@@ -1115,11 +1115,11 @@ class Director:
 
         a1h8 = self.punto2a1h8(event.pos())
         if a1h8:
-            siRight = event.button() == QtCore.Qt.RightButton
-            m = int(event.modifiers())
-            is_shift = (m & QtCore.Qt.ShiftModifier) > 0
-            is_alt = (m & QtCore.Qt.AltModifier) > 0
-            is_ctrl = (m & QtCore.Qt.ControlModifier) > 0
+            siRight = event.button() == QtCore.Qt.MouseButton.RightButton
+            m = event.modifiers()
+            is_shift = (m & QtCore.Qt.KeyboardModifier.ShiftModifier) == QtCore.Qt.KeyboardModifier.ShiftModifier
+            is_alt = (m & QtCore.Qt.KeyboardModifier.AltModifier) == QtCore.Qt.KeyboardModifier.AltModifier
+            is_ctrl = (m & QtCore.Qt.KeyboardModifier.ControlModifier) == QtCore.Qt.KeyboardModifier.ControlModifier
             self.w.boardRelease(a1h8, siRight, is_shift, is_alt, is_ctrl)
         return True
 

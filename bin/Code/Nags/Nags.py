@@ -1,6 +1,6 @@
 import collections
 
-from PySide2 import QtGui
+from PySide6 import QtGui
 
 import Code
 from Code.Base.Constantes import NO_RATING, GOOD_MOVE, MISTAKE, VERY_GOOD_MOVE, BLUNDER, INTERESTING_MOVE, INACCURACY

@@ -1,7 +1,7 @@
 import os
 import random
 
-from PySide2 import QtWidgets, QtCore, QtGui
+from PySide6 import QtWidgets, QtCore, QtGui
 
 import Code
 from Code import Util

@@ -1,7 +1,7 @@
 import random
 import time
 
-from PySide2 import QtCore, QtGui, QtWidgets
+from PySide6 import QtCore, QtGui, QtWidgets
 
 from Code.Base import Position
 from Code.Board import Board
@@ -204,7 +204,7 @@ class WMemoria(LCDialog.LCDialog):
         for txt, pieza in li_options:
             icono = self.board.piezas.icono(pieza)
 
-            accion = QtWidgets.QAction(icono, txt, menu)
+            accion = QtGui.QAction(icono, txt, menu)
             accion.key = pieza
             menu.addAction(accion)
 

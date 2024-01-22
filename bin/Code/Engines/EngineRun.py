@@ -7,7 +7,7 @@ import threading
 import time
 
 import psutil
-from PySide2 import QtCore
+from PySide6 import QtCore
 
 import Code
 from Code import Util

@@ -16,7 +16,7 @@ siempre que la rutina se haya definido en la ventana:
 
 """
 
-from PySide2 import QtCore, QtGui, QtWidgets
+from PySide6 import QtCore, QtGui, QtWidgets
 
 
 class ControlGrid(QtCore.QAbstractTableModel):
@@ -40,7 +40,7 @@ class ControlGrid(QtCore.QAbstractTableModel):
         self.siBold = hasattr(self.w_parent, "grid_bold")
         if self.siBold:
             self.bfont = QtGui.QFont(self.font)
-            self.bfont.setWeight(75)
+            self.bfont.setWeight(QtGui.QFont.Weight.Bold)
 
         self.oColumnasR = oColumnasR
 
@@ -92,30 +92,30 @@ class ControlGrid(QtCore.QAbstractTableModel):
 
         column = self.oColumnasR.column(index.column())
 
-        if role == QtCore.Qt.TextAlignmentRole:
+        if role == QtCore.Qt.ItemDataRole.TextAlignmentRole:
             if self.siAlineacion:
                 resp = self.w_parent.grid_alineacion(self.grid, index.row(), column)
                 if resp:
                     return column.QTalineacion(resp)
             return column.qtAlineacion
-        elif role == QtCore.Qt.BackgroundRole:
+        elif role == QtCore.Qt.ItemDataRole.BackgroundRole:
             if self.siColorFondo:
                 resp = self.w_parent.grid_color_fondo(self.grid, index.row(), column)
                 if resp:
                     return resp
             return column.qtColorFondo
-        elif role == QtCore.Qt.TextColorRole:
+        elif role == QtCore.Qt.ItemDataRole.ForegroundRole:
             if self.siColorTexto:
                 resp = self.w_parent.grid_color_texto(self.grid, index.row(), column)
                 if resp:
                     return resp
             return column.qtColorTexto
-        elif self.siBold and role == QtCore.Qt.FontRole:
+        elif self.siBold and role == QtCore.Qt.ItemDataRole.FontRole:
             if self.w_parent.grid_bold(self.grid, index.row(), column):
                 return self.bfont
             return None
 
-        if role == QtCore.Qt.DisplayRole:
+        if role == QtCore.Qt.ItemDataRole.DisplayRole:
             return self.w_parent.grid_dato(self.grid, index.row(), column)
 
         return None
@@ -133,25 +133,25 @@ class ControlGrid(QtCore.QAbstractTableModel):
         Llamada interna, solicitando mas informacion sobre las carcateristicas del campo actual.
         """
         if not index.isValid():
-            return QtCore.Qt.ItemIsEnabled
+            return QtCore.Qt.ItemFlags.ItemIsEnabled
 
-        flag = QtCore.Qt.ItemIsEnabled | QtCore.Qt.ItemIsSelectable
+        flag = QtCore.Qt.ItemFlags.ItemIsEnabled | QtCore.Qt.ItemFlags.ItemIsSelectable
         column = self.oColumnasR.column(index.column())
         if column.is_editable:
-            flag |= QtCore.Qt.ItemIsEditable
+            flag |= QtCore.Qt.ItemFlags.ItemIsEditable
 
         if column.siChecked:
-            flag |= QtCore.Qt.ItemIsUserCheckable
+            flag |= QtCore.Qt.ItemFlags.ItemIsUserCheckable
         return flag
 
-    def setData(self, index, valor, role=QtCore.Qt.EditRole):
+    def setData(self, index, valor, role=QtCore.Qt.ItemDataRole.EditRole):
         """
         Tras producirse la edicion de un campo en un registro se llama a esta rutina para cambiar el valor en el origen de los datos.
         Se lanza grid_setvalue en la ventana propietaria.
         """
         if not index.isValid():
             return None
-        if role == QtCore.Qt.EditRole or role == QtCore.Qt.CheckStateRole:
+        if role == QtCore.Qt.ItemDataRole.EditRole or role == QtCore.Qt.ItemDataRole.CheckStateRole:
             column = self.oColumnasR.column(index.column())
             nfila = index.row()
             self.w_parent.grid_setvalue(self.grid, nfila, column, valor)
@@ -165,11 +165,11 @@ class ControlGrid(QtCore.QAbstractTableModel):
         """
         Llamada interna, para determinar el texto de las cabeceras de las columnas.
         """
-        if role == QtCore.Qt.DisplayRole:
-            if orientation == QtCore.Qt.Horizontal:
+        if role == QtCore.Qt.ItemDataRole.DisplayRole:
+            if orientation == QtCore.Qt.Orientation.Horizontal:
                 column = self.oColumnasR.column(col)
                 return column.head
-            if self.grid.with_header_vertical and orientation == QtCore.Qt.Vertical:
+            if self.grid.with_header_vertical and orientation == QtCore.Qt.Orientation.Vertical:
                 return self.w_parent.grid_get_header_vertical(self.grid, col)
         return None
 
@@ -180,7 +180,7 @@ class ControlGrid(QtCore.QAbstractTableModel):
 
 class Header(QtWidgets.QHeaderView):
     def __init__(self, tvParent, siCabeceraMovible):
-        QtWidgets.QHeaderView.__init__(self, QtCore.Qt.Horizontal)
+        QtWidgets.QHeaderView.__init__(self, QtCore.Qt.Orientation.Horizontal)
         self.setSectionsMovable(siCabeceraMovible)
         self.setSectionsClickable(True)
         self.tvParent = tvParent
@@ -236,7 +236,7 @@ class HeaderFontVertical(Header):
         return max([self._metrics.width(self._get_data(i)) for i in range(0, self.model().columnCount(self.parent))])
 
     def _get_data(self, index):
-        return self.model().headerData(index, self.orientation(), QtCore.Qt.DisplayRole)
+        return self.model().headerData(index, self.orientation(), QtCore.Qt.ItemDataRole.DisplayRole)
 
 
 class HeaderVertical(QtWidgets.QHeaderView):
@@ -245,7 +245,7 @@ class HeaderVertical(QtWidgets.QHeaderView):
     """
 
     def __init__(self, tvParent):
-        QtWidgets.QHeaderView.__init__(self, QtCore.Qt.Vertical)
+        QtWidgets.QHeaderView.__init__(self, QtCore.Qt.Orientation.Vertical)
         self.setSectionsMovable(False)
         self.setSectionsClickable(False)
         self.tvParent = tvParent
@@ -310,7 +310,7 @@ class Grid(QtWidgets.QTableView):
         self.setModel(self.cg)
         self.setShowGrid(siLineas)
         self.setWordWrap(False)
-        self.setTextElideMode(QtCore.Qt.ElideNone)
+        self.setTextElideMode(QtCore.Qt.TextElideMode.ElideNone)
 
         if background is not None:
             self.setStyleSheet("QTableView {background: %s;}" % background)
@@ -346,7 +346,7 @@ class Grid(QtWidgets.QTableView):
         self.right_button_without_rows = False
 
     def set_headervertical_alinright(self):
-        self.verticalHeader().setDefaultAlignment(QtCore.Qt.AlignRight)
+        self.verticalHeader().setDefaultAlignment(QtCore.Qt.AlignmentFlag.AlignRight)
 
     def set_right_button_without_rows(self, ok):
         self.right_button_without_rows = ok
@@ -395,10 +395,10 @@ class Grid(QtWidgets.QTableView):
         cada tecla pulsada, llamando a la rutina correspondiente si existe (grid_tecla_pulsada/grid_tecla_control)
         """
         k = event.key()
-        m = int(event.modifiers())
-        is_shift = (m & QtCore.Qt.ShiftModifier) > 0
-        is_control = (m & QtCore.Qt.ControlModifier) > 0
-        is_alt = (m & QtCore.Qt.AltModifier) > 0
+        m = event.modifiers()
+        is_shift = (m & QtCore.Qt.KeyboardModifier.ShiftModifier) == QtCore.Qt.KeyboardModifier.ShiftModifier
+        is_control = (m & QtCore.Qt.KeyboardModifier.ControlModifier) == QtCore.Qt.KeyboardModifier.ControlModifier
+        is_alt = (m & QtCore.Qt.KeyboardModifier.AltModifier) == QtCore.Qt.KeyboardModifier.AltModifier
         if hasattr(self.w_parent, "grid_tecla_pulsada"):
             if not (is_control or is_alt) and k < 256:
                 if self.w_parent.grid_tecla_pulsada(self, event.text()) is None:
@@ -406,7 +406,7 @@ class Grid(QtWidgets.QTableView):
         if hasattr(self.w_parent, "grid_tecla_control"):
             if self.w_parent.grid_tecla_control(self, k, is_shift, is_control, is_alt) is None:
                 return
-        if k in (QtCore.Qt.Key_Delete, QtCore.Qt.Key_Backspace) and hasattr(self.w_parent, "grid_remove"):
+        if k in (QtCore.Qt.Key.Key_Delete, QtCore.Qt.Key.Key_Backspace) and hasattr(self.w_parent, "grid_remove"):
             if self.w_parent.grid_remove() is None:
                 return
 
@@ -434,7 +434,7 @@ class Grid(QtWidgets.QTableView):
         """
         if self.is_editable:
             QtWidgets.QTableView.mouseDoubleClickEvent(self, event)
-        if hasattr(self.w_parent, "grid_doble_click") and event.button() == 1:
+        if hasattr(self.w_parent, "grid_doble_click") and event.button() == QtCore.Qt.MouseButton.LeftButton:
             fil, column = self.current_position()
             self.w_parent.grid_doble_click(self, fil, column)
 
@@ -446,7 +446,7 @@ class Grid(QtWidgets.QTableView):
         QtWidgets.QTableView.mousePressEvent(self, event)
         button = event.button()
         fil, col = self.current_position()
-        if button == QtCore.Qt.RightButton:
+        if button == QtCore.Qt.MouseButton.RightButton:
             if hasattr(self.w_parent, "grid_right_button"):
                 if fil < 0 and not self.right_button_without_rows:
                     return
@@ -455,12 +455,12 @@ class Grid(QtWidgets.QTableView):
                     pass
 
                 modif = Vacia()
-                m = int(event.modifiers())
-                modif.is_shift = (m & QtCore.Qt.ShiftModifier) > 0
-                modif.is_control = (m & QtCore.Qt.ControlModifier) > 0
-                modif.is_alt = (m & QtCore.Qt.AltModifier) > 0
+                m = event.modifiers()
+                modif.is_shift = (m & QtCore.Qt.KeyboardModifier.ShiftModifier) == QtCore.Qt.KeyboardModifier.ShiftModifier
+                modif.is_control = (m & QtCore.Qt.KeyboardModifier.ControlModifier) == QtCore.Qt.KeyboardModifier.ControlModifier
+                modif.is_alt = (m & QtCore.Qt.KeyboardModifier.AltModifier) == QtCore.Qt.KeyboardModifier.AltModifier
                 self.w_parent.grid_right_button(self, fil, col, modif)
-        elif button == QtCore.Qt.LeftButton:
+        elif button == QtCore.Qt.MouseButton.LeftButton:
             if fil < 0:
                 return
             if col.siChecked:

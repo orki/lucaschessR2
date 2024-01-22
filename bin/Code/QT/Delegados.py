@@ -2,7 +2,7 @@
 Rutinas basicas para la edicion en las listas de registros.
 """
 
-from PySide2 import QtCore, QtGui, QtWidgets
+from PySide6 import QtCore, QtGui, QtWidgets
 
 import Code
 from Code.Nags.Nags import dic_symbol_nags
@@ -81,8 +81,8 @@ class LineaTexto(QtWidgets.QItemDelegate):
             editor.setValidator(QtGui.QIntValidator(self))
             editor.setAlignment(QtCore.Qt.AlignRight)
         if self.rx:
-            xrx = QtCore.QRegExp(self.rx)
-            validator = QtGui.QRegExpValidator(xrx, self)
+            xrx = QtCore.QRegularExpression(self.rx)
+            validator = QtGui.QRegularExpressionValidator(xrx, self)
             editor.setValidator(validator)
         editor.installEventFilter(self)
         return editor

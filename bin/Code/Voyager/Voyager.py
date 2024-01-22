@@ -3,7 +3,7 @@ import os
 import time
 
 from PIL import Image
-from PySide2 import QtCore, QtGui, QtWidgets
+from PySide6 import QtCore, QtGui, QtWidgets
 
 import Code
 from Code import Util
@@ -329,7 +329,7 @@ class WPosicion(QtWidgets.QWidget):
         for txt, pieza in li_options:
             icono = self.board.piezas.icono(pieza)
 
-            accion = QtWidgets.QAction(icono, txt, menu)
+            accion = QtGui.QAction(icono, txt, menu)
             accion.key = pieza
             menu.addAction(accion)
 
@@ -356,7 +356,7 @@ class WPosicion(QtWidgets.QWidget):
                 if pz == pieza:
                     self.borraCasilla(pos)
                     break
-        if QtWidgets.QApplication.keyboardModifiers() == QtCore.Qt.ShiftModifier:
+        if QtWidgets.QApplication.keyboardModifiers() == QtCore.Qt.KeyboardModifier.ShiftModifier:
             if pieza.islower():
                 pieza = pieza.upper()
             else:
@@ -735,7 +735,7 @@ class WPosicion(QtWidgets.QWidget):
     def keyPressEvent(self, event):
         k = event.key()
 
-        if k == QtCore.Qt.Key_V:
+        if k == QtCore.Qt.Key.Key_V:
             self.pegar()
 
         event.ignore()

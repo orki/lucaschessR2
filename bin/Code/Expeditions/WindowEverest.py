@@ -2,7 +2,7 @@ import os
 import random
 
 import FasterCode
-from PySide2 import QtSvg, QtCore
+from PySide6 import QtSvg, QtCore
 
 import Code
 from Code import Util

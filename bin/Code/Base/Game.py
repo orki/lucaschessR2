@@ -421,7 +421,7 @@ class Game:
                 if siB:
                     promotion = promotion.upper()
             else:
-                promotion = None
+                promotion = ""
             ok, mens, move = Move.get_game_move(self, position, from_sq, to_sq, promotion)
             if ok:
                 self.li_moves.append(move)

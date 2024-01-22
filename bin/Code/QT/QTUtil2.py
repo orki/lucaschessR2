@@ -1,4 +1,4 @@
-from PySide2 import QtCore, QtWidgets, QtGui
+from PySide6 import QtCore, QtWidgets, QtGui
 
 import Code
 from Code.Base.Constantes import GO_BACK, GO_END, GO_FORWARD, GO_START, ZVALUE_PIECE, ZVALUE_PIECE_MOVING

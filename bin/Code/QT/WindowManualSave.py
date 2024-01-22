@@ -1,7 +1,7 @@
 import encodings
 import os
 
-from PySide2 import QtWidgets, QtCore
+from PySide6 import QtWidgets, QtCore
 
 from Code.Base import Game, Position
 from Code.Board import Board

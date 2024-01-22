@@ -1,4 +1,4 @@
-from PySide2 import QtCore, QtGui, QtWidgets
+from PySide6 import QtCore, QtGui, QtWidgets
 
 import Code
 from Code.MainWindow import WInformation, WBase
@@ -57,22 +57,22 @@ class MainWindow(LCDialog.LCDialog):
 
         self.setLayout(ly)
 
-        ctrl1 = QtWidgets.QShortcut(self)
+        ctrl1 = QtGui.QShortcut(self)
         ctrl1.setKey(QtGui.QKeySequence("Ctrl+1"))
         ctrl1.activated.connect(self.pressed_shortcut_Ctrl1)
 
-        ctrlF10 = QtWidgets.QShortcut(self)
+        ctrlF10 = QtGui.QShortcut(self)
         ctrlF10.setKey(QtGui.QKeySequence("Ctrl+0"))
         ctrlF10.activated.connect(self.pressed_shortcut_Ctrl0)
 
-        F11 = QtWidgets.QShortcut(self)
+        F11 = QtGui.QShortcut(self)
         F11.setKey(QtGui.QKeySequence("F11"))
         F11.activated.connect(self.pressed_shortcut_F11)
         self.activadoF11 = False
         self.previous_f11_maximized = False
 
         if QtWidgets.QSystemTrayIcon.isSystemTrayAvailable():
-            F12 = QtWidgets.QShortcut(self)
+            F12 = QtGui.QShortcut(self)
             F12.setKey(QtGui.QKeySequence("F12"))
             F12.activated.connect(self.pressed_shortcut_F12)
             self.trayIcon = None
@@ -115,8 +115,8 @@ class MainWindow(LCDialog.LCDialog):
 
     def pressed_shortcut_F12(self):
         if not self.trayIcon:
-            restoreAction = QtWidgets.QAction(Iconos.PGN(), _("Show"), self, triggered=self.restauraTrayIcon)
-            quitAction = QtWidgets.QAction(Iconos.Terminar(), _("Quit"), self, triggered=self.quitTrayIcon)
+            restoreAction = QtGui.QAction(Iconos.PGN(), _("Show"), self, triggered=self.restauraTrayIcon)
+            quitAction = QtGui.QAction(Iconos.Terminar(), _("Quit"), self, triggered=self.quitTrayIcon)
             trayIconMenu = QtWidgets.QMenu(self)
             trayIconMenu.addAction(restoreAction)
             trayIconMenu.addSeparator()
@@ -204,7 +204,7 @@ class MainWindow(LCDialog.LCDialog):
                 self.board.normalTam(self.restore_width_pieze())
                 self.ajustaTam()
                 if self.previous_f11_maximized:
-                    self.setWindowState(QtCore.Qt.WindowMaximized)
+                    self.setWindowState(QtCore.Qt.WindowState.WindowMaximized)
             elif nue.maximizado:
                 self.save_width_piece()
                 self.board.maximizaTam(False)

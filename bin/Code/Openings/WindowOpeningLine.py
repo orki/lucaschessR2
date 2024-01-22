@@ -3,7 +3,7 @@ import operator
 import os
 import os.path
 
-from PySide2 import QtCore, QtWidgets
+from PySide6 import QtCore, QtWidgets
 
 import Code
 from Code import Util
@@ -935,7 +935,7 @@ class WLines(LCDialog.LCDialog):
     def grid_tecla_control(self, grid, k, is_shift, is_control, is_alt):
         row, pos = self.glines.posActualN()
 
-        if k == QtCore.Qt.Key_Left:
+        if k == QtCore.Qt.Key.Key_Left:
             if pos > 1:
                 if row % 2 == 0:
                     self.glines.goto(row + 1, pos - 1)
@@ -943,7 +943,7 @@ class WLines(LCDialog.LCDialog):
                     self.glines.goto(row - 1, pos)
                 return
 
-        elif k == QtCore.Qt.Key_Right:
+        elif k == QtCore.Qt.Key.Key_Right:
             if pos >= 1:
                 if row % 2 == 0:
                     self.glines.goto(row + 1, pos)
@@ -951,18 +951,18 @@ class WLines(LCDialog.LCDialog):
                     self.glines.goto(row - 1, pos + 1)
                 return
 
-        elif k in (QtCore.Qt.Key_Delete, QtCore.Qt.Key_Backspace):
+        elif k in (QtCore.Qt.Key.Key_Delete, QtCore.Qt.Key.Key_Backspace):
             row, col = self.glines.current_position()
             if col.key == "LINE":
                 self.borrar()
             else:
                 self.borrar_move()
 
-        elif k == QtCore.Qt.Key_Up:
+        elif k == QtCore.Qt.Key.Key_Up:
             if row > 0:
                 self.glines.goto(row - 1, pos)
 
-        elif k == QtCore.Qt.Key_Down:
+        elif k == QtCore.Qt.Key.Key_Down:
             if row < self.grid_num_datos(None) - 1:
                 self.glines.goto(row + 1, pos)
 

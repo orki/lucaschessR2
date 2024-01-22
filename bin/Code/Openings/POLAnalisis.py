@@ -1,7 +1,7 @@
 import os
 
 import FasterCode
-from PySide2 import QtWidgets, QtCore
+from PySide6 import QtWidgets, QtCore
 
 import Code
 from Code.Base import Game, Position

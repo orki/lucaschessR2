@@ -1,6 +1,6 @@
 import os
 
-from PySide2 import QtCore, QtGui, QtWidgets
+from PySide6 import QtCore, QtGui, QtWidgets
 
 from Code import Util
 from Code.Base.Constantes import WHITE, BLACK
@@ -54,7 +54,7 @@ class Scanner(QtWidgets.QDialog):
 
         self.setWindowFlags(
             QtCore.Qt.WindowCloseButtonHint | QtCore.Qt.FramelessWindowHint | QtCore.Qt.WindowStaysOnTopHint)
-        self.setGeometry(QtWidgets.QDesktopWidget().availableGeometry())
+        self.setGeometry(QtGui.QGuiApplication.instance().primaryScreen().availableGeometry())
 
         self.setCursor(QtGui.QCursor(Iconos.pmCursorScanner()))
 
@@ -97,7 +97,7 @@ class Scanner(QtWidgets.QDialog):
         width = point.x() - self.x
         height = point.y() - self.y
         modifiers = QtWidgets.QApplication.keyboardModifiers()
-        if modifiers == QtCore.Qt.AltModifier:
+        if modifiers == QtCore.Qt.KeyboardModifier.AltModifier:
             width = max(width, height)
             if width > 0:
                 self.height = self.width = width
@@ -125,7 +125,7 @@ class Scanner(QtWidgets.QDialog):
             self.setPath(eventMouse.pos())
 
     def mousePressEvent(self, eventMouse):
-        if eventMouse.button() in (QtCore.Qt.LeftButton, QtCore.Qt.RightButton):
+        if eventMouse.button() in (QtCore.Qt.MouseButton.LeftButton, QtCore.Qt.MouseButton.RightButton):
             self.selecting = True
             self.selected = False
             origin = eventMouse.pos()
@@ -133,7 +133,7 @@ class Scanner(QtWidgets.QDialog):
             self.y = origin.y()
             self.width = 0
             self.height = 0
-            self.side = WHITE if eventMouse.button() == QtCore.Qt.LeftButton else BLACK
+            self.side = WHITE if eventMouse.button() == QtCore.Qt.MouseButton.LeftButton else BLACK
         eventMouse.ignore()
 
     def mouseReleaseEvent(self, eventMouse):
@@ -154,35 +154,35 @@ class Scanner(QtWidgets.QDialog):
 
     def keyPressEvent(self, event):
         k = event.key()
-        m = int(event.modifiers())
-        is_ctrl = (m & QtCore.Qt.ControlModifier) > 0
-        is_alt = (m & QtCore.Qt.AltModifier) > 0
+        m = event.modifiers()
+        is_ctrl = (m & QtCore.Qt.KeyboardModifier.ControlModifier) == QtCore.Qt.KeyboardModifier.ControlModifier
+        is_alt = (m & QtCore.Qt.KeyboardModifier.AltModifier) == QtCore.Qt.KeyboardModifier.AltModifier
         x = self.x
         y = self.y
         width = self.width
         height = self.height
 
-        if k in (QtCore.Qt.Key_Return, QtCore.Qt.Key_Enter, QtCore.Qt.Key_S):
+        if k in (QtCore.Qt.Key.Key_Return, QtCore.Qt.Key.Key_Enter, QtCore.Qt.Key.Key_S):
             self.save()
             self.accept()
 
-        elif k == QtCore.Qt.Key_Escape:
+        elif k == QtCore.Qt.Key.Key_Escape:
             self.reject()
 
-        elif k == QtCore.Qt.Key_Plus:
+        elif k == QtCore.Qt.Key.Key_Plus:
             self.vars.opacity += 0.05
             if self.vars.opacity > 0.5:
                 self.vars.opacity = 0.5
             self.setWindowOpacity(self.vars.opacity)
 
-        elif k == QtCore.Qt.Key_Minus:
+        elif k == QtCore.Qt.Key.Key_Minus:
             self.vars.opacity -= 0.05
             if self.vars.opacity < 0.1:
                 self.vars.opacity = 0.1
             self.setWindowOpacity(self.vars.opacity)
 
         else:
-            if k == QtCore.Qt.Key_Right:
+            if k == QtCore.Qt.Key.Key_Right:
                 if is_ctrl:
                     width += 1
                     height += 1
@@ -190,7 +190,7 @@ class Scanner(QtWidgets.QDialog):
                     width += 1
                 else:
                     x += 1
-            elif k == QtCore.Qt.Key_Left:
+            elif k == QtCore.Qt.Key.Key_Left:
                 if is_ctrl:
                     width -= 1
                     height -= 1
@@ -198,7 +198,7 @@ class Scanner(QtWidgets.QDialog):
                     width -= 1
                 else:
                     x -= 1
-            elif k == QtCore.Qt.Key_Up:
+            elif k == QtCore.Qt.Key.Key_Up:
                 if is_ctrl:
                     height -= 1
                     width -= 1
@@ -206,7 +206,7 @@ class Scanner(QtWidgets.QDialog):
                     height -= 1
                 else:
                     y -= 1
-            elif k == QtCore.Qt.Key_Down:
+            elif k == QtCore.Qt.Key.Key_Down:
                 if is_ctrl:
                     height += 1
                     width += 1

@@ -1,7 +1,7 @@
 import os
 import math
 
-from PySide2 import QtCore, QtGui, QtWidgets
+from PySide6 import QtCore, QtGui, QtWidgets
 
 import Code
 from Code import Util
@@ -424,7 +424,7 @@ class Histogram(QtWidgets.QGraphicsView):
                 if p.rlostp:
                     if p.rect_lost.contains(ep):
                         self.dispatch(p.gridPos)
-        if event.button() == QtCore.Qt.RightButton:
+        if event.button() == QtCore.Qt.MouseButton.RightButton:
             menu = QTVarios.LCMenu(self)
             menu.opcion("clip", _("Copy to clipboard"), Iconos.Clipboard())
             menu.separador()
@@ -451,7 +451,7 @@ class Histogram(QtWidgets.QGraphicsView):
                     self.dispatch_enter(p.gridPos)
 
     def wheelEvent(self, event):
-        k = QtCore.Qt.Key_Left if event.delta() > 0 else QtCore.Qt.Key_Right
+        k = QtCore.Qt.Key.Key_Left if event.delta() > 0 else QtCore.Qt.Key.Key_Right
         self.owner.grid_tecla_control(self.grid, k, False, False, False)
 
 

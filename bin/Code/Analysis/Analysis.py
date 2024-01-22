@@ -57,7 +57,7 @@ class ControlAnalysis:
             pv1 = rm.pv.split(" ")[0]
             from_sq = pv1[:2]
             to_sq = pv1[2:4]
-            promotion = pv1[4].lower() if len(pv1) == 5 else None
+            promotion = pv1[4].lower() if len(pv1) == 5 else ""
 
             name = (
                 pb.pgn(from_sq, to_sq, promotion)

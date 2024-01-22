@@ -1,5 +1,5 @@
-import PySide2.QtGui
-from PySide2 import QtWidgets, QtCore
+import PySide6.QtGui
+from PySide6 import QtWidgets, QtCore
 
 import Code
 from Code.Base import Move, Game
@@ -23,8 +23,8 @@ class LBPGN(Controles.LB):
     def mouseDoubleClickEvent(self, event):
         self.wparent.double_click(self)
 
-    def mousePressEvent(self, ev: PySide2.QtGui.QMouseEvent):
-        if ev.button() == QtCore.Qt.RightButton:
+    def mousePressEvent(self, ev: PySide6.QtGui.QMouseEvent):
+        if ev.button() == QtCore.Qt.MouseButton.RightButton:
             return self.wparent.right_click(self)
         # Controles.LB.mousePressEvent(self, ev)
 
@@ -32,7 +32,7 @@ class LBPGN(Controles.LB):
 class ShowPGN(QtWidgets.QScrollArea):
     def __init__(self, parent, puntos, with_figurines):
         QtWidgets.QScrollArea.__init__(self, parent)
-        self.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
+        self.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
         self.setWidgetResizable(True)
         self.setFrameStyle(QtWidgets.QFrame.NoFrame)
 

@@ -1,4 +1,4 @@
-from PySide2 import QtCore
+from PySide6 import QtCore
 
 from Code.Endings import LibChess
 from Code.QT import Colocacion

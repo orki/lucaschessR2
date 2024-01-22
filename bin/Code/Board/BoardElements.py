@@ -1,6 +1,6 @@
 import base64
 
-from PySide2 import QtCore, QtGui, QtWidgets
+from PySide6 import QtCore, QtGui, QtWidgets
 
 from Code.Base.Constantes import ZVALUE_PIECE, ZVALUE_PIECE_MOVING
 from Code.QT import Controles
@@ -99,7 +99,7 @@ class CirculoSC(BloqueSC):
 
     def mousePressEvent(self, event):
         if self.rutina and self.contains(event.pos()):
-            self.rutina(event.button() == QtCore.Qt.LeftButton)
+            self.rutina(event.button() == QtCore.Qt.MouseButton.LeftButton)
 
 
 class PuntoSC(CirculoSC):
@@ -155,12 +155,12 @@ class TextoSC(BloqueSC):
     def mousePressEvent(self, event):
         event.accept()
         if self.rutina:
-            self.rutina(event.button() == QtCore.Qt.LeftButton, True, self.bloqueTexto.valor)
+            self.rutina(event.button() == QtCore.Qt.MouseButton.LeftButton, True, self.bloqueTexto.valor)
 
     def mouseReleaseEvent(self, event):
         event.ignore()
         if self.rutina:
-            self.rutina(event.button() == QtCore.Qt.LeftButton, False, self.bloqueTexto.valor)
+            self.rutina(event.button() == QtCore.Qt.MouseButton.LeftButton, False, self.bloqueTexto.valor)
 
 
 class PiezaSC(BloqueSC):

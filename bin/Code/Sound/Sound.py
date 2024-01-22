@@ -5,8 +5,8 @@ import wave
 import queue
 from io import BytesIO
 
-from PySide2 import QtCore, QtMultimedia
-from PySide2.QtMultimedia import QAudioDeviceInfo, QAudioFormat, QAudioInput, QSound
+from PySide6 import QtCore, QtMultimedia
+from PySide6.QtMultimedia import QMediaDevices, QAudioFormat, QAudioInput, QSoundEffect
 import Code
 from Code import Util
 from Code.QT import QTUtil
@@ -19,6 +19,10 @@ PLAY_SINESPERA = "N"
 STOP = "S"
 TERMINAR = "T"
 
+def load_sound(fname):
+    out = QSoundEffect()
+    out.setSource(QtCore.QUrl.fromLocalFile(fname))
+    return out
 
 class RunSound:
     def __init__(self):
@@ -53,7 +57,7 @@ class RunSound:
                 wf = wave.open(path_wav)
                 seconds = 1000.0 * wf.getnframes() / wf.getframerate()
                 wf.close()
-                qsound = QtMultimedia.QSound(path_wav)
+                qsound = load_sound(path_wav)
                 self.dic_sounds[key] = (qsound, seconds)
             else:
                 self.dic_sounds[key] = (None, 0)
@@ -203,7 +207,7 @@ class TallerSonido:
         self.centesimas = 0
 
     def mic_start(self, owner):
-        device = QAudioDeviceInfo.defaultInputDevice()
+        device = QMediaDevices.defaultInputDevice()
         if device.isNull():
             return False
 
@@ -258,7 +262,7 @@ class TallerSonido:
         path_wav = Code.configuration.ficheroTemporal("wav")
         with open(path_wav, "wb") as q:
             q.write(io_wav)
-        self.qsound = QSound(path_wav)
+        self.qsound = load_sound(path_wav)
         self.qsound.play()
 
         self.cent_desde = cent_desde

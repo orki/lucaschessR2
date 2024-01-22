@@ -1,7 +1,7 @@
 import os
 import time
 
-from PySide2 import QtCore, QtGui, QtWidgets
+from PySide6 import QtCore, QtGui, QtWidgets
 
 import Code
 from Code import Util
@@ -26,8 +26,8 @@ class MesaSonido(QtWidgets.QGraphicsView):
 
         self.setRenderHint(QtGui.QPainter.Antialiasing)
         self.setRenderHint(QtGui.QPainter.TextAntialiasing)
-        self.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
-        self.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
+        self.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
+        self.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
         self.setTransformationAnchor(self.NoAnchor)
         self.escena = QtWidgets.QGraphicsScene(self)
         self.escena.setItemIndexMethod(self.escena.NoIndex)
@@ -234,7 +234,7 @@ class WEdicionSonido(LCDialog.LCDialog):
         )
 
         for titulo, icono, key in li_options:
-            accion = QtWidgets.QAction(titulo, None)
+            accion = QtGui.QAction(titulo, None)
             accion.setIcon(icono)
             accion.setIconText(titulo)
             accion.triggered.connect(self.procesaTB)

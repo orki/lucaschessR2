@@ -1,7 +1,7 @@
 import datetime
 import random
 
-from PySide2 import QtCore
+from PySide6 import QtCore
 
 import Code.SQL.Base as SQLBase
 from Code.Engines import STS

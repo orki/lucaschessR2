@@ -1,7 +1,7 @@
 import sqlite3
 import time
 
-from PySide2 import QtWidgets, QtCore
+from PySide6 import QtWidgets, QtCore
 
 import Code
 from Code import CPU
@@ -127,7 +127,7 @@ class WLeagueWorker(QtWidgets.QWidget):
         )
         self.grid_pgn = Grid.Grid(self, o_columnas, siCabeceraMovible=False)
         self.grid_pgn.setMinimumWidth(n_ancho_pgn)
-        self.grid_pgn.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
+        self.grid_pgn.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
         self.grid_pgn.tipoLetra(puntos=configuration.x_pgn_fontpoints)
         self.grid_pgn.ponAltoFila(configuration.x_pgn_rowheight)
 
@@ -702,7 +702,7 @@ class WLeagueWorker(QtWidgets.QWidget):
                 self.board.normalTam(self.antiguoAnchoPieza)
                 self.ajustaTam()
                 if self.antiguoAnchoPieza == 1000:
-                    self.setWindowState(QtCore.Qt.WindowMaximized)
+                    self.setWindowState(QtCore.Qt.WindowState.WindowMaximized)
             elif nue.maximizado:
                 self.antiguoAnchoPieza = ct.anchoPieza()
                 self.board.maximizaTam(False)

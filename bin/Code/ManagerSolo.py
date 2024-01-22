@@ -2,7 +2,7 @@ import os
 import time
 
 import FasterCode
-from PySide2 import QtCore
+from PySide6 import QtCore
 
 import Code
 from Code import Manager
@@ -619,16 +619,16 @@ class ManagerSolo(Manager.Manager):
         self.reiniciar()
 
     def control_teclado(self, nkey, modifiers):
-        if (modifiers & QtCore.Qt.ControlModifier) > 0:
-            if nkey == QtCore.Qt.Key_V:
+        if (modifiers & QtCore.Qt.KeyboardModifier.ControlModifier) == QtCore.Qt.KeyboardModifier.ControlModifier:
+            if nkey == QtCore.Qt.Key.Key_V:
                 self.paste(QTUtil.traePortapapeles())
-            elif nkey == QtCore.Qt.Key_T:
+            elif nkey == QtCore.Qt.Key.Key_T:
                 li = [self.game.first_position.fen(), "", self.game.pgnBaseRAW()]
                 self.saveSelectedPosition("|".join(li))
-            elif nkey == QtCore.Qt.Key_S:
+            elif nkey == QtCore.Qt.Key.Key_S:
                 self.startPosition()
-            elif nkey == QtCore.Qt.Key_B:
-                is_control = (modifiers & QtCore.Qt.ControlModifier) > 0
+            elif nkey == QtCore.Qt.Key.Key_B:
+                is_control = (modifiers & QtCore.Qt.KeyboardModifier.ControlModifier) == QtCore.Qt.KeyboardModifier.ControlModifier
                 if is_control:
                     self.basic_initial_position()
 

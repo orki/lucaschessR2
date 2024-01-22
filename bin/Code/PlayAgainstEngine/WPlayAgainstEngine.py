@@ -1,6 +1,6 @@
 import os
 
-from PySide2 import QtCore, QtWidgets
+from PySide6 import QtCore, QtWidgets
 
 import Code
 from Code import Util

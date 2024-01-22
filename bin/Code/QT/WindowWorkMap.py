@@ -1,4 +1,4 @@
-from PySide2 import QtWidgets, QtSvg
+from PySide6 import QtWidgets, QtSvg
 
 from Code import WorkMap
 from Code.Analysis import Analysis

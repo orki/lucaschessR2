@@ -1,4 +1,4 @@
-from PySide2 import QtCore, QtGui, QtWidgets, QtSvg
+from PySide6 import QtCore, QtGui, QtWidgets, QtSvg
 
 from Code.Board import BoardBlocks
 

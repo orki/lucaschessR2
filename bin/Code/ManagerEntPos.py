@@ -1,6 +1,6 @@
 import os
 
-from PySide2.QtCore import Qt
+from PySide6.QtCore import Qt
 
 from Code import FNSLine
 from Code import Manager
@@ -287,11 +287,11 @@ class ManagerEntPos(Manager.Manager):
         )
 
     def control_teclado(self, nkey, modifiers):
-        if nkey in (Qt.Key_Plus, Qt.Key_PageDown):
+        if nkey in (Qt.Key.Key_Plus, Qt.Key.Key_PageDown):
             self.ent_siguiente(TB_NEXT)
-        elif nkey in (Qt.Key_Minus, Qt.Key_PageUp):
+        elif nkey in (Qt.Key.Key_Minus, Qt.Key.Key_PageUp):
             self.ent_siguiente(TB_PREVIOUS)
-        elif nkey == Qt.Key_T:
+        elif nkey == Qt.Key.Key_T:
             li = self.line_fns.line.split("|")
             li[2] = self.game.pgnBaseRAW()
             self.saveSelectedPosition("|".join(li))

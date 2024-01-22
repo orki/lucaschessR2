@@ -1,4 +1,4 @@
-from PySide2 import QtCore, QtWidgets
+from PySide6 import QtCore, QtWidgets
 
 import Code
 from Code.Analysis import Histogram
@@ -242,12 +242,12 @@ class WAnalisisGraph(LCDialog.LCDialog):
 
     def grid_tecla_control(self, grid, k, is_shift, is_control, is_alt):
         nrecno = grid.recno()
-        if k in (QtCore.Qt.Key_Enter, QtCore.Qt.Key_Return):
+        if k in (QtCore.Qt.Key.Key_Enter, QtCore.Qt.Key.Key_Return):
             self.grid_doble_click(grid, nrecno, None)
-        elif k == QtCore.Qt.Key_Right:
+        elif k == QtCore.Qt.Key.Key_Right:
             if nrecno + 1 < self.grid_num_datos(grid):
                 grid.goto(nrecno + 1, 0)
-        elif k == QtCore.Qt.Key_Left:
+        elif k == QtCore.Qt.Key.Key_Left:
             if nrecno > 0:
                 grid.goto(nrecno - 1, 0)
         else:
@@ -295,7 +295,7 @@ class WAnalisisGraph(LCDialog.LCDialog):
             pv1 = rm.pv.split(" ")[0]
             from_sq = pv1[:2]
             to_sq = pv1[2:4]
-            promotion = pv1[4] if len(pv1) == 5 else None
+            promotion = pv1[4] if len(pv1) == 5 else ''
             txt = rm.abrTextoBase()
 
             color = None

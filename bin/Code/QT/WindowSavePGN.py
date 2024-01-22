@@ -2,7 +2,7 @@ import encodings
 import os
 
 import chardet.universaldetector
-from PySide2 import QtWidgets
+from PySide6 import QtWidgets
 
 import Code
 from Code import Util

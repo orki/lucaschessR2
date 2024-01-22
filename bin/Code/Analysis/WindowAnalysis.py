@@ -1,5 +1,5 @@
 import time
-from PySide2 import QtCore, QtWidgets
+from PySide6 import QtCore, QtWidgets
 
 import Code
 from Code.Base import Move
@@ -290,7 +290,7 @@ class WAnalisis(LCDialog.LCDialog):
         self.lbPGN.linkActivated.connect(self.change_mov_active)
 
         scroll = QtWidgets.QScrollArea()
-        scroll.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
+        scroll.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
         scroll.setWidgetResizable(True)
         scroll.setFrameStyle(QtWidgets.QFrame.NoFrame)
 
@@ -352,25 +352,25 @@ class WAnalisis(LCDialog.LCDialog):
     def keyPressEvent(self, event):
         k = event.key()
 
-        if k == QtCore.Qt.Key_Down:
+        if k == QtCore.Qt.Key.Key_Down:
             self.muestraActual.wmu.abajo()
-        elif k == QtCore.Qt.Key_Up:
+        elif k == QtCore.Qt.Key.Key_Up:
             self.muestraActual.wmu.arriba()
-        elif k == QtCore.Qt.Key_Left:
+        elif k == QtCore.Qt.Key.Key_Left:
             self.muestraActual.wmu.process_toolbar("MoverAtras")
-        elif k == QtCore.Qt.Key_Right:
+        elif k == QtCore.Qt.Key.Key_Right:
             self.muestraActual.wmu.process_toolbar("MoverAdelante")
-        elif k == QtCore.Qt.Key_Home:
+        elif k == QtCore.Qt.Key.Key_Home:
             self.muestraActual.wmu.process_toolbar("MoverInicio")
-        elif k == QtCore.Qt.Key_End:
+        elif k == QtCore.Qt.Key.Key_End:
             self.muestraActual.wmu.process_toolbar("MoverFinal")
-        elif k == QtCore.Qt.Key_PageUp:
+        elif k == QtCore.Qt.Key.Key_PageUp:
             self.muestraActual.wmu.primero()
-        elif k == QtCore.Qt.Key_PageDown:
+        elif k == QtCore.Qt.Key.Key_PageDown:
             self.muestraActual.wmu.ultimo()
-        elif k in (QtCore.Qt.Key_Enter, QtCore.Qt.Key_Return):
+        elif k in (QtCore.Qt.Key.Key_Enter, QtCore.Qt.Key.Key_Return):
             self.muestraActual.wmu.process_toolbar("MoverLibre")
-        elif k == QtCore.Qt.Key_Escape:
+        elif k == QtCore.Qt.Key.Key_Escape:
             self.terminar()
 
     def toolbar_rightmouse(self):

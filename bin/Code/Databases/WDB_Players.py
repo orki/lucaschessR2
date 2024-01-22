@@ -1,5 +1,5 @@
 import FasterCode
-from PySide2 import QtWidgets, QtCore
+from PySide6 import QtWidgets, QtCore
 
 import Code
 from Code.Base import Game
@@ -331,19 +331,19 @@ class WPlayer(QtWidgets.QWidget):
                 return self.foreground
 
     def grid_tecla_control(self, grid, k, is_shift, is_control, is_alt):
-        if k in (QtCore.Qt.Key_Left, QtCore.Qt.Key_Right):
+        if k in (QtCore.Qt.Key.Key_Left, QtCore.Qt.Key.Key_Right):
             self.infoMove.tecla_pulsada(k)
             row, col = grid.posActualN()
-            if QtCore.Qt.Key_Right:
+            if QtCore.Qt.Key.Key_Right:
                 if col > 0:
                     col -= 1
-            elif QtCore.Qt.Key_Left:
+            elif QtCore.Qt.Key.Key_Left:
                 if col < len(grid.columnas().li_columns) - 1:
                     col += 1
             grid.goto(row, col)
-        elif k == QtCore.Qt.Key_Home:
+        elif k == QtCore.Qt.Key.Key_Home:
             grid.gotop()
-        elif k == QtCore.Qt.Key_End:
+        elif k == QtCore.Qt.Key.Key_End:
             grid.gobottom()
         else:
             return True  # que siga con el resto de teclas

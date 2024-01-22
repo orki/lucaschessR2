@@ -1,4 +1,4 @@
-from PySide2 import QtWidgets, QtCore
+from PySide6 import QtWidgets, QtCore
 
 import Code
 from Code.Base import Game, Position
@@ -262,7 +262,7 @@ class WMoves(QtWidgets.QWidget):
 
     def rama(self):
         if self.tree.currentMov():
-            QTUtil.send_key_widget(self.tree, QtCore.Qt.Key_Plus, "+")
+            QTUtil.send_key_widget(self.tree, QtCore.Qt.Key.Key_Plus, "+")
 
     def registered_books(self):
         WBooks.registered_books(self)
@@ -415,7 +415,7 @@ class WindowArbolBook(LCDialog.LCDialog):
         self.save_video()
 
     def keyPressEvent(self, event):
-        if event.key() == QtCore.Qt.Key_F3:
+        if event.key() == QtCore.Qt.Key.Key_F3:
             self.buscaSiguiente()
 
     def cancelar(self):

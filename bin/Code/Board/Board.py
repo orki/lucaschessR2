@@ -6,8 +6,8 @@ import webbrowser
 from io import BytesIO
 
 import FasterCode
-from PySide2 import QtCore, QtGui, QtWidgets
-from PySide2.QtCore import Qt
+from PySide6 import QtCore, QtGui, QtWidgets
+from PySide6.QtCore import Qt
 
 import Code
 import Code.Board.WBoardColors as WBoardColors
@@ -51,13 +51,13 @@ class Board(QtWidgets.QGraphicsView):
         )
         self.setViewportUpdateMode(QtWidgets.QGraphicsView.BoundingRectViewportUpdate)
         self.setCacheMode(QtWidgets.QGraphicsView.CacheBackground)
-        self.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
-        self.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
-        self.setDragMode(self.NoDrag)
+        self.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
+        self.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
+        self.setDragMode(self.DragMode.NoDrag)
         self.setInteractive(True)
-        self.setTransformationAnchor(self.NoAnchor)
+        self.setTransformationAnchor(self.ViewportAnchor.NoAnchor)
         self.escena = QtWidgets.QGraphicsScene(self)
-        self.escena.setItemIndexMethod(self.escena.NoIndex)
+        self.escena.setItemIndexMethod(self.escena.ItemIndexMethod.NoIndex)
         self.setScene(self.escena)
         self.setAlignment(QtCore.Qt.AlignTop | QtCore.Qt.AlignLeft)
 
@@ -118,33 +118,33 @@ class Board(QtWidgets.QGraphicsView):
         self.cad_buffer = ""
 
     def exec_kb_buffer(self, key, flags):
-        if key == Qt.Key_Escape:
+        if key == Qt.Key.Key_Escape:
             self.init_kb_buffer()
             return
 
-        if key in (Qt.Key_Enter, Qt.Key_Return):
+        if key in (Qt.Key.Key_Enter, Qt.Key.Key_Return):
             if self.kb_buffer:
                 last = self.kb_buffer[-1]
                 key = last.key
-                flags = last.flags | QtCore.Qt.AltModifier
+                flags = last.flags | QtCore.Qt.KeyboardModifier.AltModifier
             else:
                 return
 
-        if key in (Qt.Key_Backspace, Qt.Key_Delete):
+        if key in (Qt.Key.Key_Backspace, Qt.Key.Key_Delete):
             if self.allow_takeback():
                 self.main_window.manager.run_action(TB_TAKEBACK)
                 return
 
-        is_alt = (flags & QtCore.Qt.AltModifier) > 0
-        is_shift = (flags & QtCore.Qt.ShiftModifier) > 0
-        is_ctrl = (flags & QtCore.Qt.ControlModifier) > 0
+        is_alt = (flags & QtCore.Qt.KeyboardModifier.AltModifier) == QtCore.Qt.KeyboardModifier.AltModifier
+        is_shift = (flags & QtCore.Qt.KeyboardModifier.ShiftModifier) == QtCore.Qt.KeyboardModifier.ShiftModifier
+        is_ctrl = (flags & QtCore.Qt.KeyboardModifier.ControlModifier) == QtCore.Qt.KeyboardModifier.ControlModifier
 
         okseguir = False
 
         if is_alt or is_ctrl:
 
             # CTRL-C/ : copy fen al clipboard
-            if key == Qt.Key_C:
+            if key == Qt.Key.Key_C:
                 if (self.configuration.x_copy_ctrl and is_ctrl) or (not self.configuration.x_copy_ctrl and is_alt):
                     if is_shift:
                         if hasattr(self.main_window, "manager") and hasattr(
@@ -156,12 +156,12 @@ class Board(QtWidgets.QGraphicsView):
                         QTUtil2.message_bold(self, _("FEN is in clipboard"))
 
             # ALT-B : Menu visual
-            elif is_alt and key == Qt.Key_B:
+            elif is_alt and key == Qt.Key.Key_B:
                 self.lanzaMenuVisual()
 
-            elif is_ctrl and (key in (Qt.Key_Plus, Qt.Key_Minus)):
+            elif is_ctrl and (key in (Qt.Key.Key_Plus, Qt.Key.Key_Minus)):
                 ap = self.config_board.anchoPieza()
-                ap += 2 * (1 if key == Qt.Key_Plus else -1)
+                ap += 2 * (1 if key == Qt.Key.Key_Plus else -1)
                 if ap >= 10:
                     self.config_board.anchoPieza(ap)
                     self.config_board.guardaEnDisco()
@@ -169,16 +169,16 @@ class Board(QtWidgets.QGraphicsView):
                     return
 
             # ALT-F -> Rota board
-            elif is_alt and key == Qt.Key_F:
+            elif is_alt and key == Qt.Key.Key_F:
                 self.intentaRotarBoard(None)
 
             # ALT-I Save image to clipboard (CTRL->no border)
-            elif key == Qt.Key_I:
+            elif key == Qt.Key.Key_I:
                 self.save_as_img(is_ctrl=is_ctrl, is_alt=is_alt)
                 QTUtil2.temporary_message(self.main_window, _("Board image is in clipboard"), 1.2)
 
             # ALT-J Save image to file (CTRL->no border)
-            elif key == Qt.Key_J:
+            elif key == Qt.Key.Key_J:
                 path = SelectFiles.salvaFichero(self, _("File to save"), self.configuration.x_save_folder, "png", False)
                 if path:
                     self.save_as_img(path, "png", is_ctrl=is_ctrl, is_alt=is_alt)
@@ -186,34 +186,34 @@ class Board(QtWidgets.QGraphicsView):
                     self.configuration.graba()
 
             # ALT-K
-            elif is_alt and key == Qt.Key_K:
+            elif is_alt and key == Qt.Key.Key_K:
                 self.showKeys()
 
             # ALT-L
-            elif is_alt and key == Qt.Key_L:
+            elif is_alt and key == Qt.Key.Key_L:
                 webbrowser.open("https://lichess.org/analysis/standard/" + self.last_position.fen())
 
             # ALT-T
-            elif is_alt and key == Qt.Key_T:
+            elif is_alt and key == Qt.Key.Key_T:
                 webbrowser.open("https://old.chesstempo.com/gamedb/fen/" + self.last_position.fen())
 
             # ALT-X
-            elif is_alt and key == Qt.Key_X:
+            elif is_alt and key == Qt.Key.Key_X:
                 self.play_current_position()
 
             elif (
                     hasattr(self.main_window, "manager")
                     and self.main_window.manager
-                    and key in (Qt.Key_P, Qt.Key_N, Qt.Key_C)
+                    and key in (Qt.Key.Key_P, Qt.Key.Key_N, Qt.Key.Key_C)
             ):
                 # P -> show information
-                if key == Qt.Key_P and hasattr(self.main_window.manager, "pgnInformacion"):
+                if key == Qt.Key.Key_P and hasattr(self.main_window.manager, "pgnInformacion"):
                     self.main_window.manager.pgnInformacion()
                 # ALT-N -> non distract mode
-                elif key == Qt.Key_N and hasattr(self.main_window.manager, "nonDistractMode"):
+                elif key == Qt.Key.Key_N and hasattr(self.main_window.manager, "nonDistractMode"):
                     self.main_window.manager.nonDistractMode()
                 # ALT-C -> show captures
-                elif key == Qt.Key_C and hasattr(self.main_window.manager, "capturas"):
+                elif key == Qt.Key.Key_C and hasattr(self.main_window.manager, "capturas"):
                     self.main_window.manager.capturas()
                 else:
                     okseguir = True
@@ -276,15 +276,15 @@ class Board(QtWidgets.QGraphicsView):
 
     def keyPressEvent(self, event):
         k = event.key()
-        m = int(event.modifiers())
+        m = event.modifiers()
 
-        if Qt.Key_F1 <= k <= Qt.Key_F10:
+        if Qt.Key.Key_F1 <= k <= Qt.Key.Key_F10:
             if self.dirvisual and self.dirvisual.keyPressEvent(event):
                 return
-            if (m & QtCore.Qt.ControlModifier) > 0:
-                if k == Qt.Key_F1:
+            if (m & QtCore.Qt.KeyboardModifier.ControlModifier) == QtCore.Qt.KeyboardModifier.ControlModifier:
+                if k == Qt.Key.Key_F1:
                     self.borraUltimoMovible()
-                elif k == Qt.Key_F2:
+                elif k == Qt.Key.Key_F2:
                     self.borraMovibles()
             elif self.lanzaDirector():
                 self.dirvisual.keyPressEvent(event)
@@ -292,13 +292,13 @@ class Board(QtWidgets.QGraphicsView):
 
         event.ignore()
 
-        if k in (QtCore.Qt.Key_Delete, QtCore.Qt.Key_Backspace) and len(self.dicMovibles) > 0:
+        if k in (QtCore.Qt.Key.Key_Delete, QtCore.Qt.Key.Key_Backspace) and len(self.dicMovibles) > 0:
             if self.dirvisual:
                 self.dirvisual.keyPressEvent(event)
             else:
-                if k == QtCore.Qt.Key_Backspace:
+                if k == QtCore.Qt.Key.Key_Backspace:
                     self.borraUltimoMovible()
-                elif k == QtCore.Qt.Key_Delete:
+                elif k == QtCore.Qt.Key.Key_Delete:
                     self.borraMovibles()
             return
 
@@ -991,13 +991,13 @@ class Board(QtWidgets.QGraphicsView):
             self.activate_side(pac_sie)
 
     def key_current_graphlive(self, event):
-        m = int(event.modifiers())
+        m = event.modifiers()
         key = ""
-        if (m & QtCore.Qt.ControlModifier) > 0:
+        if (m & QtCore.Qt.KeyboardModifier.ControlModifier) == QtCore.Qt.KeyboardModifier.ControlModifier:
             key = "CTRL"
-        if (m & QtCore.Qt.AltModifier) > 0:
+        if (m & QtCore.Qt.KeyboardModifier.AltModifier) == QtCore.Qt.KeyboardModifier.AltModifier:
             key += "ALT"
-        if (m & QtCore.Qt.ShiftModifier) > 0:
+        if (m & QtCore.Qt.KeyboardModifier.ShiftModifier) == QtCore.Qt.KeyboardModifier.ShiftModifier:
             key += "SHIFT"
         return key
 
@@ -1202,7 +1202,7 @@ class Board(QtWidgets.QGraphicsView):
 
         a1h8 = self.event2a1h8(event)
 
-        si_right = event.button() == QtCore.Qt.RightButton
+        si_right = event.button() == QtCore.Qt.MouseButton.RightButton
         if si_right:
             if a1h8:
                 return self.mousePressGraphLive(event, a1h8)
@@ -1210,7 +1210,7 @@ class Board(QtWidgets.QGraphicsView):
                 self.lanzaMenuVisual()
                 return
 
-        si_izq = event.button() == QtCore.Qt.LeftButton
+        si_izq = event.button() == QtCore.Qt.MouseButton.LeftButton
         if si_izq and a1h8 is not None:
             self.borraMovibles()
 
@@ -1308,7 +1308,7 @@ class Board(QtWidgets.QGraphicsView):
                 self.flechaSC.hide()
 
     def wheelEvent(self, event):
-        if QtWidgets.QApplication.keyboardModifiers() == QtCore.Qt.ControlModifier:
+        if QtWidgets.QApplication.keyboardModifiers() == QtCore.Qt.KeyboardModifier.ControlModifier:
             if self.permitidoResizeExterno():
                 salto = event.delta() < 0
                 ap = self.config_board.anchoPieza()
@@ -2005,7 +2005,7 @@ class Board(QtWidgets.QGraphicsView):
     def peonCoronando(self, is_white):
         if self.configuration.x_autopromotion_q:
             modifiers = QtWidgets.QApplication.keyboardModifiers()
-            if modifiers != QtCore.Qt.AltModifier:
+            if modifiers != QtCore.Qt.KeyboardModifier.AltModifier:
                 return "Q" if is_white else "q"
         menu = QTVarios.LCMenu(self)
         for txt, pieza in ((_("Queen"), "Q"), (_("Rook"), "R"), (_("Bishop"), "B"), (_("Knight"), "N")):
@@ -2392,10 +2392,10 @@ class Board(QtWidgets.QGraphicsView):
             if allow_human_takeback:
                 Code.eboard.allowHumanTB = False
                 if self.main_window.manager.in_end_of_line():
-                    self.exec_kb_buffer(Qt.Key_Backspace, 0)
+                    self.exec_kb_buffer(Qt.Key.Key_Backspace, 0)
                 else:
                     self.main_window.key_pressed("T", QtCore.Qt.Key.Key_Left)
-                    # self.exec_kb_buffer(Qt.Key_Left, 0)
+                    # self.exec_kb_buffer(Qt.Key.Key_Left, 0)
                 return 1
 
             if two_moves:
@@ -2616,8 +2616,8 @@ class PosBoard(Board):
         siEvent = True
         if cx in range(1, 9) and cy in range(1, 9):
             a1h8 = self.num2alg(cy, cx)
-            siIzq = event.button() == QtCore.Qt.LeftButton
-            siDer = event.button() == QtCore.Qt.RightButton
+            siIzq = event.button() == QtCore.Qt.MouseButton.LeftButton
+            siDer = event.button() == QtCore.Qt.MouseButton.RightButton
             if self.squares.get(a1h8):
                 self.parent().ultimaPieza = self.squares.get(a1h8)
                 if hasattr(self.parent(), "ponCursor"):

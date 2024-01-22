@@ -1,6 +1,6 @@
 import copy
 
-from PySide2 import QtCore, QtWidgets
+from PySide6 import QtCore, QtWidgets
 
 import Code.Procesador
 from Code import Util

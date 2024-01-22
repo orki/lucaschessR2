@@ -1,6 +1,6 @@
 import time
 
-from PySide2.QtCore import Qt
+from PySide6.QtCore import Qt
 
 from Code import Manager
 from Code.Base.Constantes import (
@@ -187,7 +187,7 @@ class ManagerTactics(Manager.Manager):
             Manager.Manager.rutinaAccionDef(self, key)
 
     def control_teclado(self, nkey, modifiers):
-        if nkey in (Qt.Key_Plus, Qt.Key_PageDown):
+        if nkey in (Qt.Key.Key_Plus, Qt.Key.Key_PageDown):
             if self.state == ST_ENDGAME:
                 self.ent_siguiente()
 

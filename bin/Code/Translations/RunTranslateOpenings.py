@@ -1,7 +1,7 @@
 import os
 
 import polib
-from PySide2 import QtCore, QtWidgets
+from PySide6 import QtCore, QtWidgets
 
 import Code
 from Code.QT import Colocacion
@@ -234,7 +234,7 @@ class WTranslateOpenings(LCDialog.LCDialog):
 
     def siguiente(self):
         modifiers = QtWidgets.QApplication.keyboardModifiers()
-        is_shift = modifiers == QtCore.Qt.ShiftModifier
+        is_shift = modifiers == QtCore.Qt.KeyboardModifier.ShiftModifier
 
         pos = self.grid.recno()
         txt = self.ed_seek.texto().strip().upper()
@@ -262,15 +262,15 @@ class WTranslateOpenings(LCDialog.LCDialog):
 
     def keyPressEvent(self, event):
         k = event.key()
-        m = int(event.modifiers())
+        m = event.modifiers()
 
-        if k == QtCore.Qt.Key_F3:
+        if k == QtCore.Qt.Key.Key_F3:
             self.siguiente()
 
-        elif k == QtCore.Qt.Key_F and (m & QtCore.Qt.ControlModifier) > 0:
+        elif k == QtCore.Qt.Key.Key_F and (m & QtCore.Qt.KeyboardModifier.ControlModifier) == QtCore.Qt.KeyboardModifier.ControlModifier:
             self.ed_seek.setFocus()
 
-        elif k == QtCore.Qt.Key_Delete:
+        elif k == QtCore.Qt.Key.Key_Delete:
             row = self.grid.recno()
             if row >= 0:
                 key = self.li_labels[row]

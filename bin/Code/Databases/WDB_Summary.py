@@ -1,4 +1,4 @@
-from PySide2 import QtWidgets, QtCore
+from PySide6 import QtWidgets, QtCore
 
 import Code
 from Code.Base import Game
@@ -159,9 +159,9 @@ class WSummary(QtWidgets.QWidget):
         return len(self.liMoves)
 
     def grid_tecla_control(self, grid, k, is_shift, is_control, is_alt):
-        if k in (QtCore.Qt.Key_Enter, QtCore.Qt.Key_Return, QtCore.Qt.Key_Right):
+        if k in (QtCore.Qt.Key.Key_Enter, QtCore.Qt.Key.Key_Return, QtCore.Qt.Key.Key_Right):
             self.siguiente()
-        elif k == QtCore.Qt.Key_Left:
+        elif k == QtCore.Qt.Key.Key_Left:
             self.anterior()
         else:
             return True  # que siga con el resto de teclas
@@ -566,7 +566,7 @@ class WSummaryBase(QtWidgets.QWidget):
             self.actualizaPV(resp.PV)
 
     def grid_tecla_control(self, grid, k, is_shift, is_control, is_alt):
-        if k in (QtCore.Qt.Key_Enter, QtCore.Qt.Key_Return):
+        if k in (QtCore.Qt.Key.Key_Enter, QtCore.Qt.Key.Key_Return):
             self.siguiente()
 
     def grid_doble_click(self, grid, fil, col):

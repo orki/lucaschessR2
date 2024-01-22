@@ -3,7 +3,7 @@ import datetime
 import random
 import time
 
-from PySide2 import QtWidgets, QtGui
+from PySide6 import QtWidgets, QtGui
 
 from Code import Util
 from Code.Base import Position
@@ -261,7 +261,7 @@ class WEdMove(QtWidgets.QWidget):
                     pz = pz.lower()
                 icono = self.conj_piezas.icono(pz)
 
-            accion = QtWidgets.QAction(icono, txt, menu)
+            accion = QtGui.QAction(icono, txt, menu)
 
             accion.key = pz.strip()
             menu.addAction(accion)

@@ -1,7 +1,7 @@
 import time
 
 import psutil
-from PySide2 import QtCore
+from PySide6 import QtCore
 
 from Code import Util
 from Code.Base import Game, Move

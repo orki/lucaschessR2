@@ -1,6 +1,6 @@
 import time
 
-from PySide2 import QtGui
+from PySide6 import QtGui
 
 import Code
 from Code.QT import Colocacion

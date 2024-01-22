@@ -1,6 +1,6 @@
 import time
 
-from PySide2 import QtCore
+from PySide6 import QtCore
 
 from Code import ControlPGN
 from Code import Util
@@ -472,7 +472,7 @@ class WTrainBMT(LCDialog.LCDialog):
             self.abandonar()
         elif tecla == 78 and tipo == "V":  # N = next
             self.seguir()
-        elif tecla in (QtCore.Qt.Key_Delete, QtCore.Qt.Key_Backspace):  # Del
+        elif tecla in (QtCore.Qt.Key.Key_Delete, QtCore.Qt.Key.Key_Backspace):  # Del
             self.borrar()
 
     def mueveJugada(self, tipo):

@@ -2,7 +2,7 @@ import random
 import time
 
 import FasterCode
-from PySide2 import QtWidgets, QtCore
+from PySide6 import QtWidgets, QtCore
 
 import Code
 from Code.Engines import EngineManager

@@ -1,6 +1,6 @@
 import os
 
-from PySide2 import QtWidgets, QtCore
+from PySide6 import QtWidgets, QtCore
 
 import Code
 from Code import Util
@@ -674,7 +674,7 @@ class WTournament(LCDialog.LCDialog):
         self.rotulos_tabs()
 
     def grid_tecla_control(self, grid, k, is_shift, is_control, is_alt):
-        if k in (QtCore.Qt.Key_Delete, QtCore.Qt.Key_Backspace):
+        if k in (QtCore.Qt.Key.Key_Delete, QtCore.Qt.Key.Key_Backspace):
             if grid == self.gridGamesQueued:
                 self.gm_borrar_queued()
             elif grid == self.gridEnginesAlias:

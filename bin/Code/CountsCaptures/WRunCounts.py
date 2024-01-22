@@ -1,7 +1,7 @@
 import time
 
 import FasterCode
-from PySide2 import QtCore, QtGui
+from PySide6 import QtCore, QtGui
 
 import Code
 from Code.Board import Board

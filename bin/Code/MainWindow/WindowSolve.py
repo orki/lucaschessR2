@@ -1,4 +1,4 @@
-from PySide2 import QtWidgets, QtCore
+from PySide6 import QtWidgets, QtCore
 
 from Code.Base import Game, Position
 from Code.QT import Colocacion
@@ -143,9 +143,9 @@ padding: 2px;"""
     def keyPressEvent(self, event):
         k = event.key()
 
-        if k == QtCore.Qt.Key_F10:
+        if k == QtCore.Qt.Key.Key_F10:
             self.verify()
-        elif k == QtCore.Qt.Key_F1:
+        elif k == QtCore.Qt.Key.Key_F1:
             self.help()
         else:
             return

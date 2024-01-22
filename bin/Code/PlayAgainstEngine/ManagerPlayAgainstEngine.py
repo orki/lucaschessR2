@@ -964,7 +964,7 @@ class ManagerPlayAgainstEngine(Manager.Manager):
                 self.premove = from_sq, to_sq
         if self.premove:
             from_sq, to_sq = self.premove
-            promotion = "q" if self.game.last_position.siPeonCoronando(from_sq, to_sq) else None
+            promotion = "q" if self.game.last_position.siPeonCoronando(from_sq, to_sq) else ''
             ok, error, move = Move.get_game_move(
                 self.game, self.game.last_position, self.premove[0], self.premove[1], promotion
             )

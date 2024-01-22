@@ -1,4 +1,4 @@
-from PySide2 import QtCore, QtWidgets
+from PySide6 import QtCore, QtWidgets, QtGui
 
 import Code
 from Code.QT import QTUtil
@@ -52,7 +52,7 @@ class LCDialog(QtWidgets.QDialog):
         if not dic:
             dic = dicDef
 
-        if QtWidgets.QDesktopWidget().screenCount() > 1:
+        if len(QtGui.QGuiApplication.instance().screens()) > 1:
             wE = hE = 1024 * 1024
         else:
             wE, hE = QTUtil.tamEscritorio()

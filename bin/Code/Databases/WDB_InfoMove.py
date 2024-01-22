@@ -1,5 +1,5 @@
-from PySide2 import QtWidgets, QtCore
-from PySide2.QtCore import Qt
+from PySide6 import QtWidgets, QtCore
+from PySide6.QtCore import Qt
 
 from Code.Base import Position
 from Code.QT import Colocacion
@@ -23,7 +23,7 @@ class LBKey(Controles.LB):
         self.wowner.tecla_pulsada(k)
 
     def mousePressEvent(self, event):
-        if event.button() == QtCore.Qt.RightButton:
+        if event.button() == QtCore.Qt.MouseButton.RightButton:
             if not self.game:
                 return
             event.ignore()
@@ -74,7 +74,7 @@ class WInfomove(QtWidgets.QWidget):
         self.lbPGN.linkActivated.connect(muestraPos)
 
         scroll = QtWidgets.QScrollArea()
-        scroll.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
+        scroll.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
         scroll.setWidgetResizable(True)
         scroll.setFrameStyle(QtWidgets.QFrame.NoFrame)
         self.scroll = scroll
@@ -230,13 +230,13 @@ class WInfomove(QtWidgets.QWidget):
         self.board.disable_all()
 
     def tecla_pulsada(self, k):
-        if k in (Qt.Key_Left, Qt.Key_Up):
+        if k in (Qt.Key.Key_Left, Qt.Key.Key_Up):
             self.MoverAtras()
-        elif k in (Qt.Key_Right, Qt.Key_Down):
+        elif k in (Qt.Key.Key_Right, Qt.Key.Key_Down):
             self.MoverAdelante()
-        elif k == Qt.Key_Home:
+        elif k == Qt.Key.Key_Home:
             self.MoverInicio()
-        elif k == Qt.Key_End:
+        elif k == Qt.Key.Key_End:
             self.MoverFinal()
         else:
             return False

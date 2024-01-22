@@ -1,7 +1,7 @@
 import os
 import time
 
-from PySide2 import QtCore, QtWidgets
+from PySide6 import QtCore, QtWidgets
 
 import Code
 from Code import Util
@@ -272,7 +272,7 @@ class EM_SQL(Controles.EM):
 
     def mousePressEvent(self, event):
         Controles.EM.mousePressEvent(self, event)
-        if event.button() == QtCore.Qt.RightButton:
+        if event.button() == QtCore.Qt.MouseButton.RightButton:
             menu = QTVarios.LCMenu(self)
             rondo = QTVarios.rondoPuntos()
             for txt, key in self.li_fields:

@@ -1,5 +1,5 @@
 import FasterCode
-from PySide2 import QtCore
+from PySide6 import QtCore
 
 from Code import Manager
 from Code.Base import Game, Position
@@ -406,7 +406,7 @@ class ManagerGame(Manager.Manager):
         self.put_toolbar()
 
     def control_teclado(self, nkey, modifiers):
-        if nkey == QtCore.Qt.Key_V:  # V
+        if nkey == QtCore.Qt.Key.Key_V:  # V
             self.paste_pgn()
 
     def paste_pgn(self):

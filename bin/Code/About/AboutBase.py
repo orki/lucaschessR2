@@ -569,7 +569,7 @@ class ThanksTo:
     def programming(self):
         li = (
             (_("Programming language"), "Python 3.7", "http://www.python.org/"),
-            (_("GUI"), "PySide2", "https://wiki.qt.io/Qt_for_Python"),
+            (_("GUI"), "PySide6", "https://wiki.qt.io/Qt_for_Python"),
             ("psutil", _X(_("Created by %1"), "Giampaolo Rodola"), "http://code.google.com/p/psutil/"),
             ("chardet", _X(_("Created by %1"), "Ian Cordasco"), "https://github.com/chardet/chardet"),
             (

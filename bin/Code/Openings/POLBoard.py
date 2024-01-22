@@ -1,6 +1,6 @@
 import collections
 
-from PySide2 import QtWidgets, QtCore, QtGui
+from PySide6 import QtWidgets, QtCore, QtGui
 
 import Code.Nags.Nags
 from Code.Base import Game, Move
@@ -28,7 +28,7 @@ V_SIN, V_IGUAL, V_BLANCAS, V_NEGRAS, V_BLANCAS_MAS, V_NEGRAS_MAS, V_BLANCAS_MAS_
 
 class LBKey(Controles.LB):
     def mousePressEvent(self, event):
-        if event.button() == QtCore.Qt.RightButton:
+        if event.button() == QtCore.Qt.MouseButton.RightButton:
             if not self.game:
                 return
             event.ignore()
@@ -88,7 +88,7 @@ class BoardLines(QtWidgets.QWidget):
         self.lbPGN.linkActivated.connect(muestraPos)
 
         scroll = QtWidgets.QScrollArea()
-        scroll.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
+        scroll.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
         scroll.setWidgetResizable(True)
         scroll.setFrameStyle(QtWidgets.QFrame.NoFrame)
 

@@ -1,7 +1,7 @@
 import collections
 
 import FasterCode
-from PySide2 import QtWidgets, QtCore
+from PySide6 import QtWidgets, QtCore
 
 import Code
 import Code.Nags.Nags
@@ -529,9 +529,9 @@ class TreeMoves(QtWidgets.QTreeWidget):
     def keyPressEvent(self, event):
         resp = QtWidgets.QTreeWidget.keyPressEvent(self, event)
         k = event.key()
-        if k == QtCore.Qt.Key_Plus:
+        if k == QtCore.Qt.Key.Key_Plus:
             self.mas()
-        elif k in (QtCore.Qt.Key_Delete, QtCore.Qt.Key_Backspace):
+        elif k in (QtCore.Qt.Key.Key_Delete, QtCore.Qt.Key.Key_Backspace):
             self.menos()
         elif 48 <= k <= 54:
             item = self.currentItem()

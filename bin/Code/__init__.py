@@ -40,10 +40,10 @@ if is_linux:
 else:
     if not sys.argv[0].endswith(".py"):
         os.environ["QT_PLUGIN_PATH"] = os.path.join(
-            current_dir, "extlibs", "PySide2", "plugins"
+            current_dir, "extlibs", "PySide6", "plugins"
         )
         os.environ["QT_QPA_PLATFORM_PLUGIN_PATH"] = os.path.join(
-            current_dir, "extlibs", "PySide2", "plugins", "platform"
+            current_dir, "extlibs", "PySide6", "plugins", "platform"
         )
     startfile = os.startfile
 
@@ -95,7 +95,7 @@ def relative_root(path):
 
 BASE_VERSION = "B"  # Para el control de updates que necesitan reinstalar entero
 VERSION = "R 2.10a"
-DEBUG = False
+DEBUG = True
 DEBUG_ENGINES = False
 
 if DEBUG:

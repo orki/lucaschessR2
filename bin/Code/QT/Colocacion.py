@@ -1,4 +1,4 @@
-from PySide2 import QtCore, QtWidgets
+from PySide6 import QtCore, QtWidgets
 
 
 class V(QtWidgets.QVBoxLayout):
@@ -8,17 +8,17 @@ class V(QtWidgets.QVBoxLayout):
 
     def controlc(self, control):
         self.addWidget(control)
-        self.setAlignment(QtCore.Qt.AlignCenter)
+        self.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         return self
 
     def controld(self, control):
         self.addWidget(control)
-        self.setAlignment(control, QtCore.Qt.AlignRight)
+        self.setAlignment(control, QtCore.Qt.AlignmentFlag.AlignRight)
         return self
 
     def controli(self, control):
         self.addWidget(control)
-        self.setAlignment(control, QtCore.Qt.AlignLeft)
+        self.setAlignment(control, QtCore.Qt.AlignmentFlag.AlignLeft)
         return self
 
     def otro(self, layout):
@@ -45,12 +45,12 @@ class H(QtWidgets.QHBoxLayout):
 
     def controld(self, control):
         self.addWidget(control)
-        self.setAlignment(control, QtCore.Qt.AlignRight)
+        self.setAlignment(control, QtCore.Qt.AlignmentFlag.AlignRight)
         return self
 
     def controli(self, control):
         self.addWidget(control)
-        self.setAlignment(control, QtCore.Qt.AlignLeft)
+        self.setAlignment(control, QtCore.Qt.AlignmentFlag.AlignLeft)
         return self
 
     def otro(self, layout):
@@ -59,12 +59,12 @@ class H(QtWidgets.QHBoxLayout):
 
     def otroi(self, layout):
         self.addLayout(layout)
-        self.setAlignment(layout, QtCore.Qt.AlignLeft)
+        self.setAlignment(layout, QtCore.Qt.AlignmentFlag.AlignLeft)
         return self
 
     def otroc(self, layout):
         self.addLayout(layout)
-        self.setAlignment(layout, QtCore.Qt.AlignCenter)
+        self.setAlignment(layout, QtCore.Qt.AlignmentFlag.AlignCenter)
         return self
 
     def espacio(self, espacio):
@@ -85,7 +85,7 @@ class H(QtWidgets.QHBoxLayout):
 
 
 class G(QtWidgets.QGridLayout):
-    dicAlineacion = {None: QtCore.Qt.AlignLeft, "d": QtCore.Qt.AlignRight, "c": QtCore.Qt.AlignCenter}
+    dicAlineacion = {None: QtCore.Qt.AlignmentFlag.AlignLeft, "d": QtCore.Qt.AlignmentFlag.AlignRight, "c": QtCore.Qt.AlignmentFlag.AlignCenter}
 
     def control(self, control, row, column, numFilas=1, numColumnas=1, alineacion=None):
         self.addWidget(control, row, column, numFilas, numColumnas, self.dicAlineacion[alineacion])

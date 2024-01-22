@@ -20,7 +20,7 @@ Dependencies
 ------------
 
 * Python 3.7
-* PySide2
+* PySide6
 * psutil
 * Python for windows extensions
 * chardet

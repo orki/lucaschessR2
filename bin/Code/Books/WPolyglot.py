@@ -1,7 +1,7 @@
 import os
 
 import FasterCode
-from PySide2 import QtCore
+from PySide6 import QtCore
 
 from Code.Base import Position
 from Code.Board import Board
@@ -163,7 +163,7 @@ class WPolyglot(LCDialog.LCDialog):
             grid.refresh()
 
     def grid_tecla_control(self, grid, k, is_shift, is_control, is_alt):
-        if k in (QtCore.Qt.Key_Delete, QtCore.Qt.Key_Backspace):
+        if k in (QtCore.Qt.Key.Key_Delete, QtCore.Qt.Key.Key_Backspace):
             row, o_col = grid.current_position()
             field = o_col.key
 

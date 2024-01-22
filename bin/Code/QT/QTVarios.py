@@ -1,6 +1,6 @@
 import os
 
-from PySide2 import QtCore, QtGui, QtWidgets, QtSvg
+from PySide6 import QtCore, QtGui, QtWidgets, QtSvg
 
 import Code
 from Code import Util
@@ -339,7 +339,7 @@ class LBPieza(Controles.LB):
         self.ponImagen(pixmap).anchoFijo(tam).altoFijo(tam)
 
     def mousePressEvent(self, event):
-        if event.button() == QtCore.Qt.LeftButton:
+        if event.button() == QtCore.Qt.MouseButton.LeftButton:
             self.owner.startDrag(self)
 
 

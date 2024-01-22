@@ -1,7 +1,7 @@
 import base64
 import os
 
-from PySide2 import QtCore, QtGui, QtWidgets
+from PySide6 import QtCore, QtGui, QtWidgets
 
 import Code
 import Code.Nags.Nags
@@ -43,7 +43,7 @@ class BotonTema(QtWidgets.QPushButton):
         self.setIcon(iconoTema(tema, 64))
 
     def mousePressEvent(self, event):
-        self.rutina(self.tema, event.button() == QtCore.Qt.LeftButton)
+        self.rutina(self.tema, event.button() == QtCore.Qt.MouseButton.LeftButton)
 
 
 class BotonColor(QtWidgets.QPushButton):
@@ -265,7 +265,7 @@ class WBoardColors(LCDialog.LCDialog):
         ly_temas.relleno(1).margen(1)
 
         scroll = QtWidgets.QScrollArea()
-        scroll.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
+        scroll.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
         scroll.setWidgetResizable(True)
         scroll.setFrameStyle(QtWidgets.QFrame.NoFrame)
         w_themes = QtWidgets.QWidget()

@@ -1,5 +1,5 @@
 import os
-from PySide2 import QtCore
+from PySide6 import QtCore
 
 import Code
 from Code.Base.Constantes import MENU_PLAY_ANY_ENGINE, MENU_PLAY_BOTH, MENU_PLAY_YOUNG_PLAYERS

@@ -2,7 +2,7 @@ import collections
 import os
 import shutil
 
-from PySide2 import QtCore, QtGui, QtSvg
+from PySide6 import QtCore, QtGui, QtSvg
 
 import Code
 from Code.Base.Constantes import BLINDFOLD_CONFIG, BLINDFOLD_WHITE, BLINDFOLD_BLACK

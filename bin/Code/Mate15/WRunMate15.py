@@ -1,6 +1,6 @@
 import time
 
-from PySide2 import QtCore
+from PySide6 import QtCore
 
 import Code
 from Code.Base import Position

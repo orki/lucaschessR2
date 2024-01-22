@@ -1,4 +1,4 @@
-from PySide2 import QtWidgets, QtCore
+from PySide6 import QtWidgets, QtCore
 
 import Code
 from Code.Analysis import AnalysisEval
@@ -153,6 +153,6 @@ class AnalysisBar(QtWidgets.QProgressBar):
         self.set_game(self.game)
 
     def mousePressEvent(self, event):
-        if event.button() == QtCore.Qt.RightButton:
+        if event.button() == QtCore.Qt.MouseButton.RightButton:
             self.configure()
         super().mousePressEvent(event)

@@ -1,4 +1,4 @@
-from PySide2 import QtCore, QtWidgets
+from PySide6 import QtCore, QtWidgets, QtGui
 
 import Code
 from Code.Base.Constantes import (
@@ -134,7 +134,7 @@ class WBase(QtWidgets.QWidget):
         font = Controles.TipoLetra(puntos=puntos, peso=peso)
 
         for key, (titulo, icono) in dic_opciones.items():
-            accion = QtWidgets.QAction(titulo, None)
+            accion = QtGui.QAction(titulo, None)
             accion.setIcon(icono)
             accion.setIconText(titulo)
             accion.setFont(font)
@@ -272,7 +272,7 @@ class WBase(QtWidgets.QWidget):
         )
         self.pgn = Grid.Grid(self, o_columns, siCabeceraMovible=False)
         self.pgn.setMinimumWidth(width_pgn)
-        self.pgn.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
+        self.pgn.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
         self.pgn.tipoLetra(puntos=configuration.x_pgn_fontpoints)
         self.pgn.ponAltoFila(configuration.x_pgn_rowheight)
         self.pgn.set_right_button_without_rows(True)
@@ -351,7 +351,7 @@ class WBase(QtWidgets.QWidget):
         ly_capturas = Colocacion.H().control(self.lb_capt_white).control(self.lb_capt_black)
 
         ly_abajo = Colocacion.V()
-        ly_abajo.setSizeConstraint(ly_abajo.SetFixedSize)
+        ly_abajo.setSizeConstraint(ly_abajo.SizeConstraint.SetFixedSize)
         ly_abajo.otro(ly_capturas)
         ly_abajo.control(self.bt_active_tutor)
         ly_abajo.control(self.lbRotulo1).control(self.lbRotulo2).control(self.lbRotulo3).control(self.wmessage)
@@ -549,11 +549,11 @@ class WBase(QtWidgets.QWidget):
         k = event.key()
         if self.conAtajos:
             if 49 <= k <= 57:
-                m = int(event.modifiers())
-                if (m & QtCore.Qt.AltModifier) > 0:
+                m = event.modifiers()
+                if (m & QtCore.Qt.KeyboardModifier.AltModifier) == QtCore.Qt.KeyboardModifier.AltModifier:
                     self.lanzaAtajosALT(k - 48)
                     return
-        self.key_pressed("V", event.key(), int(event.modifiers()))
+        self.key_pressed("V", event.key(), event.modifiers())
 
     def boardWheelEvent(self, board, forward):
         self.key_pressed("T", QtCore.Qt.Key.Key_Left if forward else QtCore.Qt.Key.Key_Right)
@@ -568,7 +568,7 @@ class WBase(QtWidgets.QWidget):
         if tecla in dic:
             if hasattr(self.manager, "mueveJugada"):
                 self.manager.mueveJugada(dic[tecla])
-        elif tecla in (QtCore.Qt.Key_Enter, QtCore.Qt.Key_Return):
+        elif tecla in (QtCore.Qt.Key.Key_Enter, QtCore.Qt.Key.Key_Return):
             row, column = self.pgn.current_position()
             if column.key != "NUMBER":
                 if hasattr(self.manager, "analize_position"):

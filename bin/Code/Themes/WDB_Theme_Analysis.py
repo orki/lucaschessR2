@@ -1,4 +1,4 @@
-from PySide2 import QtWidgets
+from PySide6 import QtWidgets
 
 from Code.Base import Game
 from Code.QT import Colocacion

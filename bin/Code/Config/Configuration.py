@@ -3,8 +3,8 @@ import os.path
 import pickle
 
 import OSEngines  # in OS folder
-from PySide2 import QtWidgets
-from PySide2.QtCore import Qt
+from PySide6 import QtWidgets
+from PySide6.QtCore import Qt
 
 import Code
 from Code import Util
@@ -22,17 +22,17 @@ LCBASEFOLDER: str = os.path.realpath("../UserData")
 
 
 def int_toolbutton(xint):
-    for tbi in (Qt.ToolButtonIconOnly, Qt.ToolButtonTextOnly, Qt.ToolButtonTextBesideIcon, Qt.ToolButtonTextUnderIcon):
-        if xint == int(tbi):
+    for tbi in (Qt.ToolButtonStyle.ToolButtonIconOnly, Qt.ToolButtonStyle.ToolButtonTextOnly, Qt.ToolButtonStyle.ToolButtonTextBesideIcon, Qt.ToolButtonStyle.ToolButtonTextUnderIcon):
+        if xint == tbi.value:
             return tbi
-    return Qt.ToolButtonTextUnderIcon
+    return Qt.ToolButtonStyle.ToolButtonTextUnderIcon
 
 
 def toolbutton_int(qt_tbi):
-    for tbi in (Qt.ToolButtonIconOnly, Qt.ToolButtonTextOnly, Qt.ToolButtonTextBesideIcon, Qt.ToolButtonTextUnderIcon):
+    for tbi in (Qt.ToolButtonStyle.ToolButtonIconOnly, Qt.ToolButtonStyle.ToolButtonTextOnly, Qt.ToolButtonStyle.ToolButtonTextBesideIcon, Qt.ToolButtonStyle.ToolButtonTextUnderIcon):
         if qt_tbi == tbi:
-            return int(tbi)
-    return int(Qt.ToolButtonTextUnderIcon)
+            return tbi.value
+    return int(Qt.ToolButtonStyle.ToolButtonTextUnderIcon)
 
 
 def active_folder():
@@ -172,7 +172,7 @@ class Configuration:
 
         self.x_tb_fontpoints = 11
         self.x_tb_bold = False
-        self.x_tb_icons = toolbutton_int(Qt.ToolButtonTextUnderIcon)
+        self.x_tb_icons = toolbutton_int(Qt.ToolButtonStyle.ToolButtonTextUnderIcon)
 
         self.x_cursor_thinking = True
 

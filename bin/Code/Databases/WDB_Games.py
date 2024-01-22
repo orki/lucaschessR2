@@ -2,7 +2,7 @@ import os
 import shutil
 import time
 
-from PySide2 import QtWidgets, QtCore
+from PySide6 import QtWidgets, QtCore
 
 import Code
 import Code.Openings.WindowOpenings as WindowOpenings
@@ -323,21 +323,21 @@ class WGames(QtWidgets.QWidget):
         self.updateStatus()
 
     def grid_tecla_control(self, grid, k, is_shift, is_control, is_alt):
-        if k in (QtCore.Qt.Key_Enter, QtCore.Qt.Key_Return):
+        if k in (QtCore.Qt.Key.Key_Enter, QtCore.Qt.Key.Key_Return):
             self.tw_edit()
-        elif k in (QtCore.Qt.Key_Left, QtCore.Qt.Key_Right):
+        elif k in (QtCore.Qt.Key.Key_Left, QtCore.Qt.Key.Key_Right):
             self.infoMove.tecla_pulsada(k)
             row, col = self.grid.posActualN()
-            if QtCore.Qt.Key_Right:
+            if QtCore.Qt.Key.Key_Right:
                 if col > 0:
                     col -= 1
-            elif QtCore.Qt.Key_Left:
+            elif QtCore.Qt.Key.Key_Left:
                 if col < len(self.grid.columnas().li_columns) - 1:
                     col += 1
             self.grid.goto(row, col)
-        elif k == QtCore.Qt.Key_Home:
+        elif k == QtCore.Qt.Key.Key_Home:
             self.tw_gotop()
-        elif k == QtCore.Qt.Key_End:
+        elif k == QtCore.Qt.Key.Key_End:
             self.tw_gobottom()
         else:
             return True  # que siga con el resto de teclas

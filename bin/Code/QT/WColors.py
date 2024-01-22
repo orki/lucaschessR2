@@ -1,4 +1,4 @@
-from PySide2 import QtWidgets, QtCore, QtGui
+from PySide6 import QtWidgets, QtCore, QtGui
 
 import Code
 from Code import Util
@@ -229,7 +229,7 @@ class WColors(LCDialog.LCDialog):
 
     def grid_tecla_control(self, grid, k, is_shift, is_control, is_alt):
 
-        if k in (QtCore.Qt.Key_Delete, QtCore.Qt.Key_Backspace):
+        if k in (QtCore.Qt.Key.Key_Delete, QtCore.Qt.Key.Key_Backspace):
             row = self.grid.recno()
             is_head, key, value = self.li_colors[row]
             if is_head or row < 0 or key not in self.dic_personal:
@@ -238,7 +238,7 @@ class WColors(LCDialog.LCDialog):
             del self.dic_personal[key]
             self.grid.refresh()
 
-        elif is_control and k == QtCore.Qt.Key_Z:
+        elif is_control and k == QtCore.Qt.Key.Key_Z:
             if self.li_ctrl_z:
                 action, key, previous = self.li_ctrl_z.pop()
                 if action == "begin":

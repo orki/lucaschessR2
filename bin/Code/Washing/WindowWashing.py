@@ -1,7 +1,7 @@
 import os
 import shutil
 
-from PySide2 import QtSvg, QtCore
+from PySide6 import QtSvg, QtCore
 
 import Code
 from Code import Util

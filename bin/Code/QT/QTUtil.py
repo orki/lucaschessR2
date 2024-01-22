@@ -1,6 +1,6 @@
 import gc
 
-from PySide2 import QtCore, QtGui, QtWidgets
+from PySide6 import QtCore, QtGui, QtWidgets
 
 import Code
 
@@ -133,14 +133,14 @@ def centraWindow(window):
     """
     Centra la ventana en el escritorio
     """
-    screen = QtWidgets.QDesktopWidget().screenGeometry()
+    screen = QtGui.QGuiApplication.instance().primaryScreen().geometry()
     size = window.geometry()
     window.move((screen.width() - size.width()) / 2, (screen.height() - size.height()) / 2)
 
 
 def escondeWindow(window):
     pos = window.pos()
-    screen = QtWidgets.QDesktopWidget().screenGeometry()
+    screen = QtGui.QGuiApplication.instance().primaryScreen().geometry()
     if Code.is_windows:
         window.move(screen.width() * 10, 0)
     else:
@@ -156,7 +156,7 @@ class EscondeWindow:
     def __enter__(self):
         if Code.is_windows:
             self.pos = self.window.pos()
-            screen = QtWidgets.QDesktopWidget().screenGeometry()
+            screen = QtGui.QGuiApplication.instance().primaryScreen().geometry()
             self.window.move(screen.width() * 10, 0)
         else:
             self.window.showMinimized()
@@ -183,16 +183,16 @@ def tamEscritorio():
     """
     Devuelve ancho,alto del escritorio
     """
-    screen = QtWidgets.QDesktopWidget().availableGeometry()
+    screen = QtGui.QGuiApplication.instance().primaryScreen().availableGeometry()
     return screen.width(), screen.height()
 
 
 def anchoEscritorio():
-    return QtWidgets.QDesktopWidget().availableGeometry().width()
+    return QtGui.QGuiApplication.instance().primaryScreen().availableGeometry().width()
 
 
 def altoEscritorio():
-    return QtWidgets.QDesktopWidget().availableGeometry().height()
+    return QtGui.QGuiApplication.instance().primaryScreen().availableGeometry().height()
 
 
 def salirAplicacion(xid):
@@ -238,9 +238,9 @@ def shrink(widget):
 
 def kbdPulsado():
     modifiers = QtWidgets.QApplication.keyboardModifiers()
-    is_shift = modifiers == QtCore.Qt.ShiftModifier
-    is_control = modifiers == QtCore.Qt.ControlModifier
-    is_alt = modifiers == QtCore.Qt.AltModifier
+    is_shift = modifiers == QtCore.Qt.KeyboardModifier.ShiftModifier
+    is_control = modifiers == QtCore.Qt.KeyboardModifier.ControlModifier
+    is_alt = modifiers == QtCore.Qt.KeyboardModifier.AltModifier
     return is_shift, is_control, is_alt
 
 
@@ -248,6 +248,6 @@ class EstadoWindow:
     def __init__(self, x):
         self.noEstado = x == QtCore.Qt.WindowNoState
         self.minimizado = x == QtCore.Qt.WindowMinimized
-        self.maximizado = x == QtCore.Qt.WindowMaximized
+        self.maximizado = x == QtCore.Qt.WindowState.WindowMaximized
         self.fullscreen = x == QtCore.Qt.WindowFullScreen
         self.active = x == QtCore.Qt.WindowActive

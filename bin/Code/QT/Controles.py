@@ -1,5 +1,5 @@
 # import datetime
-from PySide2 import QtCore, QtGui, QtWidgets
+from PySide6 import QtCore, QtGui, QtWidgets
 
 
 class ED(QtWidgets.QLineEdit):
@@ -75,8 +75,8 @@ class ED(QtWidgets.QLineEdit):
         return self
 
     def controlrx(self, regexpr):
-        rx = QtCore.QRegExp(regexpr)
-        validator = QtGui.QRegExpValidator(rx, self)
+        rx = QtCore.QRegularExpression(regexpr)
+        validator = QtGui.QRegularExpressionValidator(rx, self)
         self.setValidator(validator)
         return self
 
@@ -694,9 +694,9 @@ class Menu(QtWidgets.QMenu):
 
     def opcion(self, key, label, icono=None, is_disabled=False, tipoLetra=None, siChecked=False, toolTip: str = ""):
         if icono:
-            accion = QtWidgets.QAction(icono, label, self)
+            accion = QtGui.QAction(icono, label, self)
         else:
-            accion = QtWidgets.QAction(label, self)
+            accion = QtGui.QAction(label, self)
         accion.key = key
         if is_disabled:
             accion.setDisabled(True)
@@ -718,8 +718,8 @@ class Menu(QtWidgets.QMenu):
         return menu
 
     def mousePressEvent(self, event):
-        self.siIzq = event.button() == QtCore.Qt.LeftButton
-        self.siDer = event.button() == QtCore.Qt.RightButton
+        self.siIzq = event.button() == QtCore.Qt.MouseButton.LeftButton
+        self.siDer = event.button() == QtCore.Qt.MouseButton.RightButton
         resp = QtWidgets.QMenu.mousePressEvent(self, event)
         return resp
 
@@ -777,7 +777,7 @@ class TB(QtWidgets.QToolBar):
                     self.addWidget(LB("").anchoFijo(datos))
                 else:
                     titulo, icono, key = datos
-                    accion = QtWidgets.QAction(titulo, self.parent)
+                    accion = QtGui.QAction(titulo, self.parent)
                     accion.setIcon(icono)
                     accion.setIconText(titulo)
                     accion.triggered.connect(self.rutina)
@@ -806,7 +806,7 @@ class TB(QtWidgets.QToolBar):
                 accion.setVisible(value)
 
     def mousePressEvent(self, event: QtGui.QMouseEvent):
-        if event.button() == QtCore.Qt.RightButton:
+        if event.button() == QtCore.Qt.MouseButton.RightButton:
             if hasattr(self.parent, "toolbar_rightmouse"):
                 self.parent.toolbar_rightmouse()
                 return
@@ -853,7 +853,7 @@ class TBrutina(QtWidgets.QToolBar):
             self.li_acciones = []
 
     def new(self, titulo, icono, key, sep=True, tool_tip=None):
-        accion = QtWidgets.QAction(titulo, self.parent)
+        accion = QtGui.QAction(titulo, self.parent)
         accion.setIcon(icono)
         accion.setIconText(titulo)
         if tool_tip:
@@ -907,7 +907,7 @@ class TBrutina(QtWidgets.QToolBar):
             accion.setEnabled(value)
 
     def set_action_title(self, key, title):
-        accion: QtWidgets.QAction
+        accion: QtGui.QAction
         accion = self.dic_toolbar.get(key, None)
         if accion:
             accion.setIconText(title)
@@ -956,13 +956,13 @@ class Tab(QtWidgets.QTabWidget):
         self.setCurrentIndex(cual)
 
     def set_position(self, pos):
-        rpos = self.North
+        rpos = self.TabPosition.North
         if pos == "S":
-            rpos = self.South
+            rpos = self.TabPosition.South
         elif pos == "E":
-            rpos = self.East
+            rpos = self.TabPosition.East
         elif pos == "W":
-            rpos = self.West
+            rpos = self.TabPosition.West
         self.setTabPosition(rpos)
         return self
 
